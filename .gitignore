@@ -1,0 +1,13 @@
+# File dan folder yang sebaiknya diabaikan untuk proyek PHP Native
+/vendor/
+/node_modules/
+/build/
+.env
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sql
