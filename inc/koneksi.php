@@ -22,10 +22,16 @@ function env($key, $default = null) {
     return isset($env[$key]) ? $env[$key] : $default;
 }
 
+$host = $_ENV['DB_HOST'];
+$dbname = $_ENV['DB_DATABASE'];
+$port = $_ENV['DB_PORT'];
+$user = $_ENV['DB_USERNAME'];
+$pass = $_ENV['DB_PASSWORD'];
+
 $koneksi = new mysqli (
-    env('DB_HOST', 'localhost'),
-    env('DB_USERNAME', 'root'),
-    env('DB_PASSWORD', ''),
-    env('DB_DATABASE', ''),
-    (int)env('DB_PORT', 3306)
+    $host,
+    $user,
+    $pass,
+    $dbname,
+    $port
 );
