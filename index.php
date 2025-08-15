@@ -242,7 +242,7 @@ include "inc/koneksi.php";
 							</li>
 
 						<?php
-						} elseif ($data_level == "Kaur Pemerintah") {
+						} elseif ($data_level == "Petugas") {
 						?>
 
 							<li class="nav-item">
@@ -531,7 +531,7 @@ include "inc/koneksi.php";
 						// Auto Halaman Home Pengguna
 						if ($data_level == "Administrator") {
 							include "home/admin.php";
-						} elseif ($data_level == "Kaur Pemerintah") {
+						} elseif ($data_level == "Petugas") {
 							include "home/kaur.php";
 						}
 					}

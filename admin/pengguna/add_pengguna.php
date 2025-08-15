@@ -33,7 +33,7 @@
 					<select name="level" id="level" class="form-control">
 						<option>- Pilih -</option>
 						<option>Administrator</option>
-						<option>Kaur Pemerintah</option>
+						<option>Petugas</option>
 					</select>
 				</div>
 			</div>
