@@ -1,6 +1,10 @@
 <?php
 // Fungsi untuk membaca file .env
 function env($key, $default = null) {
+    $value = getenv($key);
+    if ($value !== false) {
+        return $value;
+    }
     static $env = null;
     if ($env === null) {
         $env = [];
