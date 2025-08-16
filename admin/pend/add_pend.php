@@ -10,7 +10,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">NIK</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" maxlength="16" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+					<input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" minlength="16" maxlength="16" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 					<small id="nik-status" class="form-text text-muted">Masukkan 16 digit NIK</small>
 				</div>
 			</div>

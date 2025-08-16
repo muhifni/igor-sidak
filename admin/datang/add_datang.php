@@ -21,12 +21,12 @@
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Jenis Kelain</label>
+				<label class="col-sm-2 col-form-label">Jenis Kelamin</label>
 				<div class="col-sm-3">
 					<select name="jekel" id="jekel" class="form-control">
 						<option>- Pilih -</option>
-						<option>LK</option>
-						<option>PR</option>
+						<option>Laki-Laki</option>
+						<option></option>
 					</select>
 				</div>
 			</div>

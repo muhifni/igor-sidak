@@ -47,11 +47,11 @@
 						<option value="">-- Pilih jekel --</option>
 						<?php
                 //menhecek data yg dipilih sebelumnya
-                if ($data_cek['jekel'] == "LK") echo "<option value='LK' selected>LK</option>";
-                else echo "<option value='LK'>LK</option>";
+                if ($data_cek['jekel'] == "Laki-Laki") echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
+                else echo "<option value='Laki-Laki'>Laki-Laki</option>";
 
-                if ($data_cek['jekel'] == "PR") echo "<option value='PR' selected>PR</option>";
-                else echo "<option value='PR'>PR</option>";
+                if ($data_cek['jekel'] == "Perempuan") echo "<option value='Perempuan' selected>Perempuan</option>";
+                else echo "<option value='Perempuan'>Perempuan</option>";
             ?>
 					</select>
 				</div>

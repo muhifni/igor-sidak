@@ -95,17 +95,17 @@ include "inc/koneksi.php";
 
 if (isset($_POST['btnLogin'])) {
 	//anti inject sql
-	$username = mysqli_real_escape_string($koneksi, $_POST['username']);
+	$username = mysqli_real_escape_string($koneksi, strtolower(trim($_POST['username'])));
 	$password = mysqli_real_escape_string($koneksi, $_POST['password']);
 
-	//query login
-	$sql_login = "SELECT * FROM tb_pengguna WHERE BINARY username='$username' AND password='$password'";
+	//query login - ambil data user berdasarkan username
+	$sql_login = "SELECT * FROM tb_pengguna WHERE BINARY username='$username'";
 	$query_login = mysqli_query($koneksi, $sql_login);
 	$data_login = mysqli_fetch_array($query_login, MYSQLI_BOTH);
 	$jumlah_login = mysqli_num_rows($query_login);
 
-
-	if ($jumlah_login == 1) {
+	// Verifikasi password
+	if ($jumlah_login == 1 && password_verify($password, $data_login['password'])) {
 		if (session_status() !== PHP_SESSION_ACTIVE) {
 			session_start();
 		}
@@ -122,7 +122,7 @@ if (isset($_POST['btnLogin'])) {
 			})</script>";
 	} else {
 		echo "<script>
-			Swal.fire({title: 'Login Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
+			Swal.fire({title: 'Login Gagal, Username atau Password Salah',text: '',icon: 'error',confirmButtonText: 'OK'
 			}).then((result) => {if (result.value)
 				{window.location = 'login.php';}
 			})</script>";

@@ -27,7 +27,7 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">NIK</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nik" name="nik" value="<?php echo $data_cek['nik']; ?>" maxlength="16" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+					<input type="text" class="form-control" id="nik" name="nik" value="<?php echo $data_cek['nik']; ?>" minlength="16" maxlength="16" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 					<small id="nik-status" class="form-text text-muted">Masukkan 16 digit NIK</small>
 				</div>
 			</div>
@@ -56,10 +56,10 @@ if (isset($_GET['kode'])) {
 						<option value="">-- Pilih jekel --</option>
 						<?php
 						//menhecek data yg dipilih sebelumnya
-						if ($data_cek['jekel'] == "LK" || $data_cek['jekel'] == "Laki-Laki") echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
+						if ($data_cek['jekel'] == "Laki-Laki" || $data_cek['jekel'] == "Laki-Laki") echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
 						else echo "<option value='Laki-Laki'>Laki-Laki</option>";
 
-						if ($data_cek['jekel'] == "PR" || $data_cek['jekel'] == "Perempuan") echo "<option value='Perempuan' selected>Perempuan</option>";
+						if ($data_cek['jekel'] == "Perempuan" || $data_cek['jekel'] == "Perempuan") echo "<option value='Perempuan' selected>Perempuan</option>";
 						else echo "<option value='Perempuan'>Perempuan</option>";
 						?>
 					</select>

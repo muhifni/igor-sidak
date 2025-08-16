@@ -51,7 +51,7 @@ CREATE TABLE `tb_datang` (
   `id_datang` int(11) NOT NULL,
   `nik` varchar(20) NOT NULL,
   `nama_datang` varchar(20) NOT NULL,
-  `jekel` enum('LK','PR') NOT NULL,
+  `jekel` enum('Laki-Laki','PR') NOT NULL,
   `tgl_datang` date NOT NULL,
   `pelapor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -61,7 +61,7 @@ CREATE TABLE `tb_datang` (
 --
 
 INSERT INTO `tb_datang` (`id_datang`, `nik`, `nama_datang`, `jekel`, `tgl_datang`, `pelapor`) VALUES
-(3, '677899', 'Nugroho', 'LK', '2021-05-13', 14);
+(3, '677899', 'Nugroho', 'Laki-Laki', '2021-05-13', 14);
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,7 @@ CREATE TABLE `tb_lahir` (
   `id_lahir` int(11) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `tgl_lh` date NOT NULL,
-  `jekel` enum('LK','PR') NOT NULL,
+  `jekel` enum('Laki-Laki','PR') NOT NULL,
   `id_kk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -108,7 +108,7 @@ CREATE TABLE `tb_lahir` (
 --
 
 INSERT INTO `tb_lahir` (`id_lahir`, `nama`, `tgl_lh`, `jekel`, `id_kk`) VALUES
-(3, 'Restu', '2021-05-14', 'LK', 7);
+(3, 'Restu', '2021-05-14', 'Laki-Laki', 7);
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,7 @@ CREATE TABLE `tb_pdd` (
   `nama` varchar(20) NOT NULL,
   `tempat_lh` varchar(15) NOT NULL,
   `tgl_lh` date NOT NULL,
-  `jekel` enum('LK','PR') NOT NULL,
+  `jekel` enum('Laki-Laki','PR') NOT NULL,
   `desa` varchar(15) NOT NULL,
   `rt` varchar(4) NOT NULL,
   `rw` varchar(4) NOT NULL,
@@ -157,8 +157,8 @@ CREATE TABLE `tb_pdd` (
 --
 
 INSERT INTO `tb_pdd` (`id_pend`, `nik`, `nama`, `tempat_lh`, `tgl_lh`, `jekel`, `desa`, `rt`, `rw`, `agama`, `kawin`, `pekerjaan`, `status`) VALUES
-(14, '1234', 'Ardi', 'Karuni', '1995-02-20', 'LK', 'Tegal Sari', '01', '-', 'Islam', 'Sudah', 'Buruh', 'Pindah'),
-(15, '21712718', 'Restu', 'Loura', '1996-09-13', 'LK', 'Tamantirto', '002', '004', 'Islam', 'Belum', 'Pegawai Swasta', 'Meninggal');
+(14, '1234', 'Ardi', 'Karuni', '1995-02-20', 'Laki-Laki', 'Tegal Sari', '01', '-', 'Islam', 'Sudah', 'Buruh', 'Pindah'),
+(15, '21712718', 'Restu', 'Loura', '1996-09-13', 'Laki-Laki', 'Tamantirto', '002', '004', 'Islam', 'Belum', 'Pegawai Swasta', 'Meninggal');
 
 -- --------------------------------------------------------
 
