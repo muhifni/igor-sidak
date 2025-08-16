@@ -28,9 +28,10 @@
 
 					<?php
 					$no = 1;
-					$sql = $koneksi->query("SELECT p.id_pend, p.nik, p.nama, p.jekel, p.desa, p.rt, p.rw, a.id_kk, k.no_kk, k.kepala from 
+					$sql = $koneksi->query("SELECT p.id_pend, p.nik, p.nama, p.jekel, p.desa, p.rt, p.rw, a.id_kk, k.no_kk, pk.nama as kepala from 
 			  tb_pdd p left join tb_anggota a on p.id_pend=a.id_pend 
-			  left join tb_kk k on a.id_kk=k.id_kk where status='Ada'");
+			  left join tb_kk k on a.id_kk=k.id_kk 
+			  left join tb_pdd pk on k.id_kepala=pk.id_pend where p.status='Ada'");
 					while ($data = $sql->fetch_assoc()) {
 					?>
 

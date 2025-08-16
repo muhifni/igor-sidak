@@ -141,7 +141,8 @@ if (isset($_GET['kode'])) {
 	const requiredFields = [
 		'nik', 'nama', 'tempat_lh', 'tgl_lh', 'jekel', 'desa', 'rt', 'rw', 'agama', 'kawin', 'pekerjaan'
 	];
-	let nikValid = false;
+	// Inisialisasi status NIK berdasarkan data yang sudah ada
+	let nikValid = nikInput.value.length === 16;
 	let nikDuplicate = false;
 
 	function checkFormFilled() {
@@ -211,7 +212,18 @@ if (isset($_GET['kode'])) {
 });
 
 	form.addEventListener('input', checkFormFilled);
-	document.addEventListener('DOMContentLoaded', checkFormFilled);
+	
+	// Inisialisasi saat halaman dimuat
+	document.addEventListener('DOMContentLoaded', function() {
+		// Validasi NIK awal jika sudah ada data
+		if (nikInput.value.length === 16) {
+			nikValid = true;
+			nikDuplicate = false; // Asumsi NIK yang sudah ada valid
+			nikStatus.className = 'form-text text-success';
+			nikStatus.textContent = 'NIK milik user ini';
+		}
+		checkFormFilled();
+	});
 </script>
 
 <?php

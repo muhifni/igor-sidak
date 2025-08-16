@@ -33,18 +33,26 @@
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Kpl Keluarga</label>
+				<label class="col-sm-2 col-form-label">Kepala Keluarga</label>
 				<div class="col-sm-6">
 					<select name="kepala" id="kepala" class="form-control" required>
 						<option value="">- Pilih Kepala Keluarga -</option>
 						<?php
-						$sql_penduduk = "SELECT id_pend, nama, nik FROM tb_pdd WHERE status = 'Ada' ORDER BY nama ASC";
+						// Mengecualikan penduduk yang sudah menjadi kepala keluarga atau anggota keluarga lain
+						// kecuali kepala keluarga yang sedang diedit
+						$current_id_kk = $data_cek['id_kk'];
+						$sql_penduduk = "SELECT p.id_pend, p.nama, p.nik FROM tb_pdd p 
+										 WHERE p.status = 'Ada' 
+										 AND (p.id_pend NOT IN (SELECT id_kepala FROM tb_kk WHERE id_kepala IS NOT NULL AND id_kk != '$current_id_kk')
+										 OR p.id_pend = '{$data_cek['id_kepala']}')
+										 AND p.id_pend NOT IN (SELECT id_pend FROM tb_anggota WHERE id_kk != '$current_id_kk')
+										 ORDER BY p.nama ASC";
 						$query_penduduk = mysqli_query($koneksi, $sql_penduduk);
 						while ($data_penduduk = mysqli_fetch_array($query_penduduk)) {
-							if ($data_penduduk['nama'] == $data_cek['kepala']) {
-								echo "<option value='" . $data_penduduk['nama'] . "' selected>" . $data_penduduk['nama'] . " (" . $data_penduduk['nik'] . ")</option>";
+							if ($data_penduduk['id_pend'] == $data_cek['id_kepala']) {
+								echo "<option value='" . $data_penduduk['id_pend'] . "' selected>" . $data_penduduk['nama'] . " (" . $data_penduduk['nik'] . ")</option>";
 							} else {
-								echo "<option value='" . $data_penduduk['nama'] . "'>" . $data_penduduk['nama'] . " (" . $data_penduduk['nik'] . ")</option>";
+								echo "<option value='" . $data_penduduk['id_pend'] . "'>" . $data_penduduk['nama'] . " (" . $data_penduduk['nik'] . ")</option>";
 							}
 						}
 						?>
@@ -122,9 +130,17 @@
         Swal.fire({title: 'No KK Sudah Terdaftar',text: 'Silakan gunakan nomor KK yang lain.',icon: 'error',confirmButtonText: 'OK'
         })</script>";
     } else {
+        // Ambil nama kepala keluarga berdasarkan id_pend
+        $id_kepala = $_POST['kepala'];
+        $sql_nama = "SELECT nama FROM tb_pdd WHERE id_pend = '$id_kepala'";
+        $query_nama = mysqli_query($koneksi, $sql_nama);
+        $data_nama = mysqli_fetch_assoc($query_nama);
+        $nama_kepala = $data_nama['nama'];
+        
         $sql_ubah = "UPDATE tb_kk SET 
         no_kk='".$_POST['no_kk']."',
-        kepala='".$_POST['kepala']."',
+        kepala='".$nama_kepala."',
+        id_kepala='".$id_kepala."',
         desa='".$_POST['desa']."',
         rt='".$_POST['rt']."',
         rw='".$_POST['rw']."',

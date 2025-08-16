@@ -64,7 +64,7 @@
 						<option selected="">- Pilih -</option>
 						<?php
                         // ambil data dari database
-                        $query = "select * from tb_kk";
+                        $query = "SELECT k.*, p.nama as kepala FROM tb_kk k LEFT JOIN tb_pdd p ON k.id_kepala = p.id_pend";
                         $hasil = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($hasil)) {
                         ?>

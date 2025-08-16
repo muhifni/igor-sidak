@@ -21,10 +21,15 @@
 					<select name="kepala" id="kepala" class="form-control" required>
 						<option value="">- Pilih Kepala Keluarga -</option>
 						<?php
-						$sql_penduduk = "SELECT id_pend, nama, nik FROM tb_pdd WHERE status = 'Ada' ORDER BY nama ASC";
+						// Mengecualikan penduduk yang sudah menjadi kepala keluarga atau anggota keluarga lain
+						$sql_penduduk = "SELECT p.id_pend, p.nama, p.nik FROM tb_pdd p 
+										 WHERE p.status = 'Ada' 
+										 AND p.id_pend NOT IN (SELECT id_kepala FROM tb_kk WHERE id_kepala IS NOT NULL)
+										 AND p.id_pend NOT IN (SELECT id_pend FROM tb_anggota)
+										 ORDER BY p.nama ASC";
 						$query_penduduk = mysqli_query($koneksi, $sql_penduduk);
 						while ($data_penduduk = mysqli_fetch_array($query_penduduk)) {
-							echo "<option value='" . $data_penduduk['nama'] . "'>" . $data_penduduk['nama'] . " (" . $data_penduduk['nik'] . ")</option>";
+							echo "<option value='" . $data_penduduk['id_pend'] . "'>" . $data_penduduk['nama'] . " (" . $data_penduduk['nik'] . ")</option>";
 						}
 						?>
 					</select>
@@ -99,9 +104,17 @@ if (isset($_POST['Simpan'])) {
                 }
             })</script>";
 	} else {
-		$sql_simpan = "INSERT INTO tb_kk (no_kk, kepala, desa, rt, rw, kec, kab, prov) VALUES (
+		// Ambil nama kepala keluarga berdasarkan id_pend
+		$id_kepala = $_POST['kepala'];
+		$sql_nama = "SELECT nama FROM tb_pdd WHERE id_pend = '$id_kepala'";
+		$query_nama = mysqli_query($koneksi, $sql_nama);
+		$data_nama = mysqli_fetch_assoc($query_nama);
+		$nama_kepala = $data_nama['nama'];
+		
+		$sql_simpan = "INSERT INTO tb_kk (no_kk, kepala, id_kepala, desa, rt, rw, kec, kab, prov) VALUES (
               '" . $_POST['no_kk'] . "',
-              '" . $_POST['kepala'] . "',
+              '" . $nama_kepala . "',
+              '" . $id_kepala . "',
               '" . $_POST['desa'] . "',
               '" . $_POST['rt'] . "',
               '" . $_POST['rw'] . "',

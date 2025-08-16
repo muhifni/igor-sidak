@@ -26,7 +26,7 @@
 
 					<?php
               $no = 1;
-              $sql = $koneksi->query("select * from tb_kk");
+              $sql = $koneksi->query("SELECT k.*, p.nama as nama_kepala FROM tb_kk k LEFT JOIN tb_pdd p ON k.id_kepala = p.id_pend");
               while ($data= $sql->fetch_assoc()) {
             ?>
 
@@ -38,7 +38,7 @@
 							<?php echo $data['no_kk']; ?>
 						</td>
 						<td>
-							<?php echo $data['kepala']; ?>
+							<?php echo $data['nama_kepala'] ? $data['nama_kepala'] : $data['kepala']; ?>
 						</td>
 						<td>
 							<?php echo $data['desa']; ?>
