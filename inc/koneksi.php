@@ -1,6 +1,7 @@
 <?php
 // Fungsi untuk membaca file .env
-function env($key, $default = null) {
+function env($key, $default = null)
+{
     $value = getenv($key);
     if ($value !== false) {
         return $value;
@@ -22,13 +23,13 @@ function env($key, $default = null) {
     return isset($env[$key]) ? $env[$key] : $default;
 }
 
-$host = $_ENV['DB_HOST'];
-$dbname = $_ENV['DB_DATABASE'];
-$port = $_ENV['DB_PORT'];
-$user = $_ENV['DB_USERNAME'];
-$pass = $_ENV['DB_PASSWORD'];
+$host = env('DB_HOST');
+$dbname = env('DB_DATABASE');
+$port = env('DB_PORT');
+$user = env('DB_USERNAME');
+$pass = env('DB_PASSWORD');
 
-$koneksi = new mysqli (
+$koneksi = new mysqli(
     $host,
     $user,
     $pass,
