@@ -1,6 +1,6 @@
 <?php
 
-  $sql = $koneksi->query("SELECT COUNT(id_pend) as pend  from tb_pdd where status='Ada'");
+  $sql = $koneksi->query("SELECT COUNT(id_pend) as pend  from tb_pdd");
   while ($data= $sql->fetch_assoc()) {
     $pend=$data['pend'];
   }
@@ -10,19 +10,24 @@
     $kartu=$data['kartu'];
   }
 
-  $sql = $koneksi->query("SELECT COUNT(id_pend) as laki  from tb_pdd where jekel='LK'");
+  $sql = $koneksi->query("SELECT COUNT(id_pend) as laki_laki from tb_pdd where jekel='Laki-Laki'");
   while ($data= $sql->fetch_assoc()) {
-    $laki=$data['laki'];
+    $laki=$data['laki_laki'];
   }
 
-  $sql = $koneksi->query("SELECT COUNT(id_pend) as prem  from tb_pdd where jekel='PR'");
+  $sql = $koneksi->query("SELECT COUNT(id_pend) as perempuan  from tb_pdd where jekel='Perempuan'");
   while ($data= $sql->fetch_assoc()) {
-    $prem=$data['prem'];
+    $perempuan=$data['perempuan'];
   }
 
   $sql = $koneksi->query("SELECT COUNT(id_lahir) as lahir from tb_lahir");
   while ($data= $sql->fetch_assoc()) {
     $lahir=$data['lahir'];
+  }
+
+  $sql = $koneksi->query("SELECT COUNT(id_mendu) as mendu  from tb_mendu");
+  while ($data= $sql->fetch_assoc()) {
+    $mendu=$data['mendu'];
   }
 
   $sql = $koneksi->query("SELECT COUNT(id_mendu) as mendu  from tb_mendu");
@@ -104,7 +109,7 @@
 		<div class="small-box bg-warning">
 			<div class="inner">
 				<h3>
-					<?php echo $prem;  ?>
+					<?php echo $perempuan;  ?>
 				</h3>
 
 				<p>Perempuan</p>
