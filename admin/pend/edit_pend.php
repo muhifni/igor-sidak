@@ -163,56 +163,56 @@ if (isset($_GET['kode'])) {
 	}
 
 	nikInput.addEventListener('input', function() {
-	const nik = this.value;
-	nikValid = nik.length === 16;
-	const idPend = document.getElementById('id_pend') ? document.getElementById('id_pend').value : '';
-	if (nikValid) {
-		const xhr = new XMLHttpRequest();
-		xhr.open('POST', 'admin/pend/check_nik.php', true);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				try {
-					const response = JSON.parse(xhr.responseText);
-					nikStatus.className = 'form-text';
-					// Jika NIK ditemukan dan id_pend berbeda, maka duplikat
-					console.log(response);
-					if (response.exists && response.id_pend !== idPend) {
+		const nik = this.value;
+		nikValid = nik.length === 16;
+		const idPend = document.getElementById('id_pend') ? document.getElementById('id_pend').value : '';
+		if (nikValid) {
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', '/Sistem-Data-Kependudukan/admin/check_nik.php', true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					try {
+						const response = JSON.parse(xhr.responseText);
+						nikStatus.className = 'form-text';
+						// Jika NIK ditemukan dan id_pend berbeda, maka duplikat
+						console.log(response);
+						if (response.exists && response.id_pend !== idPend) {
+							nikDuplicate = true;
+							nikStatus.classList.add('text-danger');
+							nikStatus.classList.remove('text-muted', 'text-success');
+							nikStatus.textContent = response.message;
+						} else {
+							nikDuplicate = false;
+							nikStatus.classList.add('text-success');
+							nikStatus.classList.remove('text-muted', 'text-danger');
+							nikStatus.textContent = response.message;
+						}
+						checkFormFilled();
+					} catch (e) {
+						nikStatus.className = 'form-text text-danger';
+						nikStatus.textContent = 'Error saat memvalidasi NIK';
 						nikDuplicate = true;
-						nikStatus.classList.add('text-danger');
-						nikStatus.classList.remove('text-muted', 'text-success');
-						nikStatus.textContent = response.message;
-					} else {
-						nikDuplicate = false;
-						nikStatus.classList.add('text-success');
-						nikStatus.classList.remove('text-muted', 'text-danger');
-						nikStatus.textContent = response.message;
+						checkFormFilled();
 					}
-					checkFormFilled();
-				} catch (e) {
-					nikStatus.className = 'form-text text-danger';
-					nikStatus.textContent = 'Error saat memvalidasi NIK';
-					nikDuplicate = true;
-					checkFormFilled();
 				}
-			}
-		};
-		xhr.send('nik=' + encodeURIComponent(nik) + '&id_pend=' + encodeURIComponent(idPend));
-	} else if (nik.length > 0) {
-		nikStatus.className = 'form-text text-muted';
-		nikStatus.textContent = 'NIK harus 16 digit';
-		nikDuplicate = true;
-		checkFormFilled();
-	} else {
-		nikStatus.className = 'form-text text-muted';
-		nikStatus.textContent = 'Masukkan 16 digit NIK';
-		nikDuplicate = true;
-		checkFormFilled();
-	}
-});
+			};
+			xhr.send('nik=' + encodeURIComponent(nik) + '&id_pend=' + encodeURIComponent(idPend));
+		} else if (nik.length > 0) {
+			nikStatus.className = 'form-text text-muted';
+			nikStatus.textContent = 'NIK harus 16 digit';
+			nikDuplicate = true;
+			checkFormFilled();
+		} else {
+			nikStatus.className = 'form-text text-muted';
+			nikStatus.textContent = 'Masukkan 16 digit NIK';
+			nikDuplicate = true;
+			checkFormFilled();
+		}
+	});
 
 	form.addEventListener('input', checkFormFilled);
-	
+
 	// Inisialisasi saat halaman dimuat
 	document.addEventListener('DOMContentLoaded', function() {
 		// Validasi NIK awal jika sudah ada data
