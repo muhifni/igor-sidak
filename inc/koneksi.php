@@ -28,6 +28,12 @@ function log_access()
 {
     global $koneksi;
 
+    // --- START DEBUGGING CODE ---
+    // Baris ini akan mencatat semua header yang diterima ke file debug.
+    // Hapus baris ini setelah selesai debugging.
+    file_put_contents(__DIR__ . '/ip_debug_log.txt', date('Y-m-d H:i:s') . "\n" . print_r($_SERVER, true) . "\n\n", FILE_APPEND);
+    // --- END DEBUGGING CODE ---
+
     $user_id = $_SESSION['ses_id'] ?? 0;
     $username = $_SESSION['ses_nama'] ?? 'Guest';
     $page = $_GET['page'] ?? 'dashboard';
