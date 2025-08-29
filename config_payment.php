@@ -9,7 +9,7 @@ $payment_status = 'active';
 $expired_date = '2025-09-10';
 
 // Pesan untuk notifikasi
-$payment_message = 'Aplikasi akan expired pada tanggal ' . date('d F Y', strtotime($expired_date));
+$payment_message = 'Ini adalah trial dan aplikasi akan expired pada tanggal ' . date('d F Y', strtotime($expired_date));
 
 // Pesan jika aplikasi diblokir
 $blocked_message = 'Akses aplikasi diblokir. Silakan hubungi administrator untuk mengaktifkan kembali.';
