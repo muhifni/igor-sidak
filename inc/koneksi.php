@@ -32,14 +32,31 @@ function log_access()
     $username = $_SESSION['ses_nama'] ?? 'Guest';
     $page = $_GET['page'] ?? 'dashboard';
     // Mendapatkan IP address user yang sebenarnya (untuk deployment dengan proxy/CDN)
-    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? // Cloudflare
-          $_SERVER['HTTP_X_FORWARDED_FOR'] ?? // Load balancer/proxy
-          $_SERVER['HTTP_X_REAL_IP'] ?? // Nginx proxy
-          $_SERVER['REMOTE_ADDR']; // Fallback
+    // Berdasarkan dokumentasi Cloudflare 2024
+    $ip = null;
     
-    // Jika ada multiple IP (comma separated), ambil yang pertama
-    if (strpos($ip, ',') !== false) {
-        $ip = trim(explode(',', $ip)[0]);
+    // 1. Prioritas utama: CF-Connecting-IP (Cloudflare)
+    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
+        $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    }
+    // 2. X-Forwarded-For (Load balancer/proxy)
+    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $forwarded_ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        foreach ($forwarded_ips as $forwarded_ip) {
+            $forwarded_ip = trim($forwarded_ip);
+            if (filter_var($forwarded_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                $ip = $forwarded_ip;
+                break;
+            }
+        }
+    }
+    // 3. X-Real-IP (Nginx proxy)
+    elseif (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
+        $ip = $_SERVER['HTTP_X_REAL_IP'];
+    }
+    // 4. Fallback ke REMOTE_ADDR
+    if (empty($ip)) {
+        $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
     }
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
