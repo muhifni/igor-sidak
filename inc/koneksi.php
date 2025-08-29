@@ -52,3 +52,7 @@ $koneksi = new mysqli(
     $dbname,
     $port
 );
+
+// Set timezone untuk Asia/Jakarta
+date_default_timezone_set('Asia/Jakarta');
+mysqli_query($koneksi, "SET time_zone = '+07:00'");
