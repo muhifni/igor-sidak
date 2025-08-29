@@ -28,50 +28,48 @@ function log_access()
 {
     global $koneksi;
 
-    // --- START DEBUGGING CODE ---
-    // Baris ini akan mencatat semua header yang diterima ke file debug.
-    // Hapus baris ini setelah selesai debugging.
-    echo "<pre>";
-    print_r($_SERVER);
-    echo "</pre>";
-    die("DEBUGGING: End of Server Variables.");
-    // --- END DEBUGGING CODE ---
+    // Hapus kode debug yang ditambahkan sebelumnya
+    // print_r($_SERVER);
+    // die('DEBUGGING: End of Server Variables.');
 
-    $user_id = $_SESSION['ses_id'] ?? 0;
-    $username = $_SESSION['ses_nama'] ?? 'Guest';
-    $page = $_GET['page'] ?? 'dashboard';
-    // Mendapatkan IP address user yang sebenarnya (untuk deployment dengan proxy/CDN)
-    // Berdasarkan dokumentasi Cloudflare 2024
-    $ip = null;
-    
-    // 1. Prioritas utama: CF-Connecting-IP (Cloudflare)
-    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
-        $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-    }
-    // 2. X-Forwarded-For (Load balancer/proxy)
-    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $forwarded_ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        foreach ($forwarded_ips as $forwarded_ip) {
-            $forwarded_ip = trim($forwarded_ip);
-            if (filter_var($forwarded_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
-                $ip = $forwarded_ip;
-                break;
+    $ip_address = 'UNKNOWN';
+    $ip_headers = [
+        'HTTP_CF_CONNECTING_IP', // Prioritas utama untuk Cloudflare
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_X_REAL_IP',
+        'REMOTE_ADDR'
+    ];
+
+    foreach ($ip_headers as $header) {
+        if (!empty($_SERVER[$header])) {
+            $ip_list = explode(',', $_SERVER[$header]);
+            $first_ip = trim(reset($ip_list));
+
+            // Validasi IP dan pastikan bukan IP privat (kecuali untuk pengembangan lokal)
+            if (filter_var($first_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                $ip_address = $first_ip;
+                break; 
+            }
+            
+            // Fallback jika semua IP adalah privat (misalnya dalam jaringan internal)
+            if ($ip_address === 'UNKNOWN') {
+                 $ip_address = $first_ip;
             }
         }
     }
-    // 3. X-Real-IP (Nginx proxy)
-    elseif (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
-        $ip = $_SERVER['HTTP_X_REAL_IP'];
-    }
-    // 4. Fallback ke REMOTE_ADDR
-    if (empty($ip)) {
-        $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-    }
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-    $sql = "INSERT INTO tb_access_log (user_id, username, page_accessed, ip_address, user_agent) 
-            VALUES ('$user_id', '$username', '$page', '$ip', '$user_agent')";
-    mysqli_query($koneksi, $sql);
+    // Fallback terakhir jika semua header kosong
+    if ($ip_address === 'UNKNOWN' && !empty($_SERVER['REMOTE_ADDR'])) {
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+    }
+
+    $page_accessed = $_SERVER['REQUEST_URI'];
+    $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'UNKNOWN';
+
+    $stmt = $koneksi->prepare("INSERT INTO tb_access_log (ip_address, page_accessed, user_agent) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $ip_address, $page_accessed, $user_agent);
+    $stmt->execute();
+    $stmt->close();
 }
 
 $host = env('DB_HOST');
