@@ -31,7 +31,10 @@ function log_access()
     // --- START DEBUGGING CODE ---
     // Baris ini akan mencatat semua header yang diterima ke file debug.
     // Hapus baris ini setelah selesai debugging.
-    file_put_contents(__DIR__ . '/ip_debug_log.txt', date('Y-m-d H:i:s') . "\n" . print_r($_SERVER, true) . "\n\n", FILE_APPEND);
+    echo "<pre>";
+    print_r($_SERVER);
+    echo "</pre>";
+    die("DEBUGGING: End of Server Variables.");
     // --- END DEBUGGING CODE ---
 
     $user_id = $_SESSION['ses_id'] ?? 0;
