@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "inc/koneksi.php";
+include "config_payment.php";
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +43,27 @@ include "inc/koneksi.php";
 					</h5>
 					<br>
 				</center>
+
+				<?php
+				// Tampilkan notifikasi status pembayaran
+				$access_status = checkAccessStatus();
+				$notification_message = getNotificationMessage();
+				$days_remaining = getDaysRemaining();
+				
+				// Tentukan warna alert berdasarkan status
+				$alert_class = 'alert-info';
+				if ($access_status == 'blocked' || $access_status == 'expired') {
+					$alert_class = 'alert-danger';
+				} elseif ($days_remaining <= 7) {
+					$alert_class = 'alert-warning';
+				}
+				?>
+				
+				<div class="alert <?php echo $alert_class; ?> alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h6><i class="icon fas fa-info"></i> Informasi Akses</h6>
+					<?php echo $notification_message; ?>
+				</div>
 
 
 				<form action="" method="post">
