@@ -28,7 +28,7 @@ if (isset($_SESSION['ses_id'])) {
     
     if ($access_status == 'expired') {
         echo "<script>
-            alert('Aplikasi telah expired. Silakan perpanjang subscription untuk melanjutkan penggunaan.');
+            alert('Aplikasi telah expired. Silakan lunasi pembayaran untuk melanjutkan penggunaan.');
             window.location = 'logout.php';
         </script>";
         exit();

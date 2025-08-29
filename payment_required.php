@@ -64,7 +64,7 @@ $days_remaining = getDaysRemaining();
                         <?php echo $notification_message; ?>
                     </div>
                     <p class="text-muted">
-                        Silakan perpanjang subscription untuk melanjutkan penggunaan aplikasi.
+                        Silakan lunasi pembayaran untuk melanjutkan penggunaan aplikasi.
                     </p>
                     
                 <?php else: ?>
@@ -73,7 +73,7 @@ $days_remaining = getDaysRemaining();
                         <?php echo $notification_message; ?>
                     </div>
                     <p class="text-muted">
-                        Segera perpanjang subscription sebelum aplikasi expired.
+                        Segera lunasi pembayaran sebelum aplikasi expired.
                     </p>
                     
                     <a href="index.php" class="btn btn-primary">

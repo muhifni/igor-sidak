@@ -15,7 +15,7 @@ $payment_message = 'Aplikasi akan expired pada tanggal ' . date('d F Y', strtoti
 $blocked_message = 'Akses aplikasi diblokir. Silakan hubungi administrator untuk mengaktifkan kembali.';
 
 // Pesan jika aplikasi expired
-$expired_message = 'Aplikasi telah expired. Silakan perpanjang lunasi pembayaran untuk melanjutkan penggunaan.';
+$expired_message = 'Aplikasi telah expired. Silakan lunasi pembayaran untuk melanjutkan penggunaan.';
 
 // Fungsi untuk mengecek status akses
 function checkAccessStatus() {
