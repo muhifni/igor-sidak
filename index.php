@@ -12,6 +12,9 @@ if (isset($_SESSION["ses_username"]) == "") {
 
 //KONEKSI DB
 include "inc/koneksi.php";
+if (isset($_SESSION['ses_id'])) {
+    log_access();
+}
 ?>
 
 <!DOCTYPE html>

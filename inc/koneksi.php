@@ -23,6 +23,22 @@ function env($key, $default = null)
     return isset($env[$key]) ? $env[$key] : $default;
 }
 
+// Fungsi log akses sederhana
+function log_access()
+{
+    global $koneksi;
+
+    $user_id = $_SESSION['ses_id'] ?? 0;
+    $username = $_SESSION['ses_nama'] ?? 'Guest';
+    $page = $_GET['page'] ?? 'dashboard';
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+    $sql = "INSERT INTO tb_access_log (user_id, username, page_accessed, ip_address, user_agent) 
+            VALUES ('$user_id', '$username', '$page', '$ip', '$user_agent')";
+    mysqli_query($koneksi, $sql);
+}
+
 $host = env('DB_HOST');
 $dbname = env('DB_DATABASE');
 $port = env('DB_PORT');
