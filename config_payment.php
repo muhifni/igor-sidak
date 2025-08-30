@@ -6,7 +6,7 @@
 $payment_status = 'active';
 
 // Tanggal expired aplikasi (format: YYYY-MM-DD)
-$expired_date = '2025-09-10';
+$expired_date = '2025-10-01';
 
 // Pesan untuk notifikasi
 $payment_message = 'Ini adalah trial dan aplikasi akan expired pada tanggal ' . date('d F Y', strtotime($expired_date));
