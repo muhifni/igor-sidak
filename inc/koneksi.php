@@ -28,10 +28,6 @@ function log_access()
 {
     global $koneksi;
 
-    // Hapus kode debug yang ditambahkan sebelumnya
-    // print_r($_SERVER);
-    // die('DEBUGGING: End of Server Variables.');
-
     $ip_address = 'UNKNOWN';
     $ip_headers = [
         'HTTP_CF_CONNECTING_IP', // Prioritas utama untuk Cloudflare
@@ -65,9 +61,13 @@ function log_access()
 
     $page_accessed = $_SERVER['REQUEST_URI'];
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'UNKNOWN';
+    
+    // Ambil informasi user dari session (gunakan nama session yang benar)
+    $user_id = isset($_SESSION['ses_id']) ? $_SESSION['ses_id'] : null;
+    $username = isset($_SESSION['ses_username']) ? $_SESSION['ses_username'] : null;
 
-    $stmt = $koneksi->prepare("INSERT INTO tb_access_log (ip_address, page_accessed, user_agent) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $ip_address, $page_accessed, $user_agent);
+    $stmt = $koneksi->prepare("INSERT INTO tb_access_log (user_id, username, ip_address, page_accessed, user_agent) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("issss", $user_id, $username, $ip_address, $page_accessed, $user_agent);
     $stmt->execute();
     $stmt->close();
 }
