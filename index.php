@@ -12,31 +12,6 @@ if (isset($_SESSION["ses_username"]) == "") {
 
 //KONEKSI DB
 include "inc/koneksi.php";
-include "config_payment.php";
-
-// Pengecekan pembatasan akses
-if (isset($_SESSION['ses_id'])) {
-    $access_status = checkAccessStatus();
-    
-    if ($access_status == 'blocked') {
-        echo "<script>
-            alert('Akses aplikasi diblokir. Silakan hubungi administrator untuk mengaktifkan kembali.');
-            window.location = 'logout.php';
-        </script>";
-        exit();
-    }
-    
-    if ($access_status == 'expired') {
-        echo "<script>
-            alert('Aplikasi telah expired. Silakan lunasi pembayaran untuk melanjutkan penggunaan.');
-            window.location = 'logout.php';
-        </script>";
-        exit();
-    }
-    
-    // Log akses jika status aktif
-    log_access();
-}
 ?>
 
 <!DOCTYPE html>
