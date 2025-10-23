@@ -12,7 +12,7 @@ if (isset($_SESSION["ses_username"]) == "") {
 
 //KONEKSI DB
 include "inc/koneksi.php";
-include "config_payment.php";
+// include "config_payment.php";
 
 // Pengecekan pembatasan akses
 if (isset($_SESSION['ses_id'])) {

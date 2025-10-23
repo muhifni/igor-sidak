@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "inc/koneksi.php";
-include "config_payment.php";
+// include "config_payment.php";
 ?>
 
 <!DOCTYPE html>
