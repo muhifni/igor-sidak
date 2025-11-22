@@ -1,7 +1,7 @@
 <div class="card card-primary">
     <div class="card-header">
         <h3 class="card-title">
-            <i class="fa fa-file"></i> Su-Ket Pengantar KK
+            <i class="fa fa-file"></i> Surat Kartu Keluarga
         </h3>
     </div>
     <form action="./report/cetak_kk.php" method="post" enctype="multipart/form-data">

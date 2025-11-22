@@ -250,7 +250,7 @@ include "inc/koneksi.php";
 										<a href="?page=suket-kk"
 											class="nav-link <?php echo (strpos($active_page, 'suket-kk') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
-											<p>Surat Pengantar KK</p>
+											<p>Surat KK</p>
 										</a>
 									</li>
 								</ul>
@@ -445,7 +445,7 @@ include "inc/koneksi.php";
 										<a href="?page=suket-kk"
 											class="nav-link <?php echo (strpos($active_page, 'suket-kk') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
-											<p>Surat Pengantar KK</p>
+											<p>Surat KK</p>
 										</a>
 									</li>
 								</ul>
@@ -591,7 +591,7 @@ include "inc/koneksi.php";
 									<li class="nav-item">
 										<a href="?page=suket-kk" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
-											<p>Surat Pengantar KK</p>
+											<p>Surat KK</p>
 										</a>
 									</li>
 								</ul>
