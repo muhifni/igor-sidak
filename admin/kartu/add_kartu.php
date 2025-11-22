@@ -10,7 +10,8 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">No Kartu Keluarga</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No KK" maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+					<input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No KK" maxlength="16"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
 					<small id="kk-status" class="form-text text-muted">Masukkan 16 digit No KK</small>
 				</div>
 			</div>
@@ -39,38 +40,44 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Desa/Kelurahan</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="desa" name="desa" placeholder="Desa/Kelurahan" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="desa" name="desa" placeholder="Desa/Kelurahan" required
+						oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">RT/RW</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="rt" name="rt" placeholder="RT" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+					<input type="text" class="form-control" id="rt" name="rt" placeholder="RT" maxlength="3"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
 				</div>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="rw" name="rw" placeholder="RW" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+					<input type="text" class="form-control" id="rw" name="rw" placeholder="RW" maxlength="3"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Kecamatan</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="kec" name="kec" placeholder="Kecamatan" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="kec" name="kec" placeholder="Kecamatan" required
+						oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Kabupaten</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="kab" name="kab" placeholder="Kabupaten" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="kab" name="kab" placeholder="Kabupaten" required
+						oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Provinsi</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="prov" name="prov" placeholder="Provinsi" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="prov" name="prov" placeholder="Provinsi" required
+						oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
@@ -104,13 +111,35 @@ if (isset($_POST['Simpan'])) {
                 }
             })</script>";
 	} else {
-		// Ambil nama kepala keluarga berdasarkan id_pend
-		$id_kepala = $_POST['kepala'];
+
+		// Ambil id kepala dari form
+		$id_kepala = isset($_POST['kepala']) ? $_POST['kepala'] : '';
+
+		// Validasi: kepala keluarga wajib dipilih
+		if (empty($id_kepala)) {
+			echo "<script>
+            Swal.fire({
+                title: 'Gagal!',
+                text: 'Silakan pilih Kepala Keluarga terlebih dahulu',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.value){
+                    window.location = 'index.php?page=add-kartu';
+                }
+            })
+        </script>";
+			exit;
+		}
+
+		// Ambil nama kepala dari tb_pdd
 		$sql_nama = "SELECT nama FROM tb_pdd WHERE id_pend = '$id_kepala'";
 		$query_nama = mysqli_query($koneksi, $sql_nama);
 		$data_nama = mysqli_fetch_assoc($query_nama);
-		$nama_kepala = $data_nama['nama'];
-		
+
+		$nama_kepala = $data_nama ? $data_nama['nama'] : '';
+
+		// SIMPAN KE tb_kk
 		$sql_simpan = "INSERT INTO tb_kk (no_kk, kepala, id_kepala, desa, rt, rw, kec, kab, prov) VALUES (
               '" . $_POST['no_kk'] . "',
               '" . $nama_kepala . "',
@@ -122,35 +151,59 @@ if (isset($_POST['Simpan'])) {
               '" . $_POST['kab'] . "',
               '" . $_POST['prov'] . "')";
 		$query_simpan = mysqli_query($koneksi, $sql_simpan);
-		mysqli_close($koneksi);
 
 		if ($query_simpan) {
+			// ambil id_kk baru
+			$id_kk_baru = mysqli_insert_id($koneksi);
+
+			// otomatis masukkan kepala keluarga ke tb_anggota
+			$sql_anggota_kepala = "INSERT INTO tb_anggota (id_kk, id_pend, hubungan)
+                               VALUES ('$id_kk_baru', '$id_kepala', 'Kepala Keluarga')";
+			mysqli_query($koneksi, $sql_anggota_kepala);
+
+			mysqli_close($koneksi);
+
 			echo "<script>
-			Swal.fire({title: 'Tambah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
-			}).then((result) => {if (result.value)
-				{window.location = 'index.php?page=data-kartu';
-				}
-			})</script>";
+            Swal.fire({
+                title: 'Tambah Data Berhasil',
+                text: '',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.value){
+                    window.location = 'index.php?page=data-kartu';
+                }
+            })
+        </script>";
 		} else {
+			mysqli_close($koneksi);
+
 			echo "<script>
-			Swal.fire({title: 'Tambah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
-			}).then((result) => {if (result.value)
-				{window.location = 'index.php?page=add-kartu';
-				}
-			})</script>";
+            Swal.fire({
+                title: 'Tambah Data Gagal',
+                text: '',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.value){
+                    window.location = 'index.php?page=add-kartu';
+                }
+            })
+        </script>";
 		}
 	}
+
 }
 ?>
 
 <script>
 	function capitalizeWords(input) {
-		input.value = input.value.replace(/\b\w+/g, function(word) {
+		input.value = input.value.replace(/\b\w+/g, function (word) {
 			return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 		});
 	}
 
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		const form = document.querySelector('form');
 		const submitBtn = document.getElementById('btn-simpan');
 		const noKkInput = document.getElementById('no_kk');
@@ -163,7 +216,7 @@ if (isset($_POST['Simpan'])) {
 
 		function checkFormFilled() {
 			let filled = true;
-			requiredFields.forEach(function(fieldId) {
+			requiredFields.forEach(function (fieldId) {
 				const el = document.getElementById(fieldId);
 				if (el) {
 					if (el.tagName === 'SELECT') {
@@ -178,14 +231,14 @@ if (isset($_POST['Simpan'])) {
 			submitBtn.disabled = !filled;
 		}
 
-		noKkInput.addEventListener('input', function() {
+		noKkInput.addEventListener('input', function () {
 			const noKk = this.value;
 			kkValid = noKk.length === 16;
 			if (kkValid) {
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', 'admin/kartu/check_kk.php', true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				xhr.onreadystatechange = function() {
+				xhr.onreadystatechange = function () {
 					if (xhr.readyState === 4 && xhr.status === 200) {
 						try {
 							const response = JSON.parse(xhr.responseText);

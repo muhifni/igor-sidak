@@ -19,8 +19,8 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row d-none">
 				<label class="col-sm-2 col-form-label">No Sistem</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="id_lahir" name="id_lahir" value="<?php echo $data_cek['id_lahir']; ?>"
-						readonly />
+					<input type="text" class="form-control" id="id_lahir" name="id_lahir"
+						value="<?php echo $data_cek['id_lahir']; ?>" readonly />
 				</div>
 			</div>
 
@@ -37,16 +37,16 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Nama</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nama" name="nama" value="<?php echo $data_cek['nama']; ?>"
-						required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="nama" name="nama"
+						value="<?php echo $data_cek['nama']; ?>" required oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Tgl Lahir</label>
 				<div class="col-sm-3">
-					<input type="date" class="form-control" id="tgl_lh" name="tgl_lh" value="<?php echo $data_cek['tgl_lh']; ?>"
-						required>
+					<input type="date" class="form-control" id="tgl_lh" name="tgl_lh"
+						value="<?php echo $data_cek['tgl_lh']; ?>" required>
 				</div>
 			</div>
 
@@ -58,11 +58,15 @@ if (isset($_GET['kode'])) {
 						<option value="">-- Pilih jekel --</option>
 						<?php
 						//menhecek data yg dipilih sebelumnya
-						if ($data_cek['jekel'] == "Laki-Laki") echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
-						else echo "<option value='Laki-Laki'>Laki-Laki</option>";
+						if ($data_cek['jekel'] == "Laki-Laki")
+							echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
+						else
+							echo "<option value='Laki-Laki'>Laki-Laki</option>";
 
-						if ($data_cek['jekel'] == "Perempuan") echo "<option value='Perempuan' selected>Perempuan</option>";
-						else echo "<option value='Perempuan'>Perempuan</option>";
+						if ($data_cek['jekel'] == "Perempuan")
+							echo "<option value='Perempuan' selected>Perempuan</option>";
+						else
+							echo "<option value='Perempuan'>Perempuan</option>";
 						?>
 					</select>
 				</div>
@@ -78,13 +82,13 @@ if (isset($_GET['kode'])) {
 						$query = "SELECT k.*, p.nama as kepala FROM tb_kk k LEFT JOIN tb_pdd p ON k.id_kepala = p.id_pend";
 						$hasil = mysqli_query($koneksi, $query);
 						while ($row = mysqli_fetch_array($hasil)) {
-						?>
+							?>
 							<option value="<?php echo $row['id_kk'] ?>" <?= $data_cek['id_kk'] == $row['id_kk'] ? "selected" : null ?>>
 								<?php echo $row['no_kk'] ?>
 								-
 								<?php echo $row['kepala'] ?>
 							</option>
-						<?php
+							<?php
 						}
 						?>
 					</select>
@@ -108,7 +112,7 @@ if (isset($_POST['Ubah'])) {
 	$tables_to_check = ['tb_pdd', 'tb_datang', 'tb_lahir'];
 	$nik_exists = false;
 	$table_found = '';
-	
+
 	foreach ($tables_to_check as $table) {
 		if ($table == 'tb_lahir') {
 			// Untuk tabel tb_lahir, kecualikan record yang sedang diedit
@@ -118,7 +122,7 @@ if (isset($_POST['Ubah'])) {
 		}
 		$cek_result = mysqli_query($koneksi, $cek_query);
 		$cek_data = mysqli_fetch_assoc($cek_result);
-		
+
 		if ($cek_data['count'] > 0) {
 			$nik_exists = true;
 			$table_names = [
@@ -130,7 +134,7 @@ if (isset($_POST['Ubah'])) {
 			break;
 		}
 	}
-	
+
 	if ($nik_exists) {
 		echo "<script>
 		Swal.fire({title: 'NIK Sudah Terdaftar',text: 'NIK sudah terdaftar di data $table_found',icon: 'error',confirmButtonText: 'OK'
@@ -146,42 +150,42 @@ if (isset($_POST['Ubah'])) {
 		$query_ubah = mysqli_query($koneksi, $sql_ubah);
 		mysqli_close($koneksi);
 
-	if ($query_ubah) {
-		echo "<script>
+		if ($query_ubah) {
+			echo "<script>
       Swal.fire({title: 'Ubah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
       }).then((result) => {if (result.value)
         {window.location = 'index.php?page=data-lahir';
         }
       })</script>";
-	} else {
-		echo "<script>
+		} else {
+			echo "<script>
       Swal.fire({title: 'Ubah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
       }).then((result) => {if (result.value)
         {window.location = 'index.php?page=data-lahir';
         }
       })</script>";
-	}
+		}
 	}
 }
 ?>
 
 <script>
 	function capitalizeWords(input) {
-		input.value = input.value.replace(/\b\w+/g, function(word) {
+		input.value = input.value.replace(/\b\w+/g, function (word) {
 			return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 		});
 	}
 
 	// Validasi NIK hanya angka
-	document.getElementById('nik').addEventListener('input', function(e) {
+	document.getElementById('nik').addEventListener('input', function (e) {
 		// Hapus semua karakter non-digit
 		this.value = this.value.replace(/\D/g, '');
-		
+
 		// Batasi maksimal 16 digit
 		if (this.value.length > 16) {
 			this.value = this.value.slice(0, 16);
 		}
-		
+
 		// Validasi NIK dengan AJAX jika sudah 16 digit
 		if (this.value.length === 16) {
 			checkNIK(this.value);
@@ -190,16 +194,16 @@ if (isset($_POST['Ubah'])) {
 			document.getElementById('nik-message').innerHTML = '';
 		}
 	});
-	
+
 	// Fungsi untuk cek NIK via AJAX
 	function checkNIK(nik) {
 		const idLahir = document.querySelector('input[name="id_lahir"]').value;
 		$.ajax({
-			url: '/Sistem-Data-Kependudukan/admin/check_nik.php',
+			url: '../check_nik.php',
 			type: 'POST',
 			data: { nik: nik, id_lahir: idLahir },
 			dataType: 'json',
-			success: function(response) {
+			success: function (response) {
 				const messageDiv = document.getElementById('nik-message');
 				if (response.exists) {
 					messageDiv.innerHTML = '<small class="text-danger">' + response.message + '</small>';
@@ -207,7 +211,7 @@ if (isset($_POST['Ubah'])) {
 					messageDiv.innerHTML = '<small class="text-success">' + response.message + '</small>';
 				}
 			},
-			error: function() {
+			error: function () {
 				document.getElementById('nik-message').innerHTML = '<small class="text-warning">Error validasi NIK</small>';
 			}
 		});

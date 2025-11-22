@@ -168,7 +168,7 @@ if (isset($_GET['kode'])) {
 		const idPend = document.getElementById('id_pend') ? document.getElementById('id_pend').value : '';
 		if (nikValid) {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '/Sistem-Data-Kependudukan/admin/check_nik.php', true);
+			xhr.open('POST', '../check_nik.php', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === 4 && xhr.status === 200) {

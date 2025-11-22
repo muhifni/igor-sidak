@@ -20,15 +20,16 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row d-none">
 				<label class="col-sm-2 col-form-label">No Sistem</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="id_datang" name="id_datang" value="<?php echo $data_cek['id_datang']; ?>"
-						readonly />
+					<input type="text" class="form-control" id="id_datang" name="id_datang"
+						value="<?php echo $data_cek['id_datang']; ?>" readonly />
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">NIK</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nik" name="nik" minlength="16" maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'')" value="<?php echo $data_cek['nik']; ?>"
+					<input type="text" class="form-control" id="nik" name="nik" minlength="16" maxlength="16"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')" value="<?php echo $data_cek['nik']; ?>"
 						required>
 					<small id="nik-status" class="form-text text-muted">Masukkan 16 digit NIK</small>
 				</div>
@@ -37,8 +38,8 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Nama</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nama_datang" name="nama_datang" value="<?php echo $data_cek['nama_datang']; ?>"
-						required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="nama_datang" name="nama_datang"
+						value="<?php echo $data_cek['nama_datang']; ?>" required oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
@@ -49,11 +50,15 @@ if (isset($_GET['kode'])) {
 						<option value="">-- Pilih jekel --</option>
 						<?php
 						//menhecek data yg dipilih sebelumnya
-						if ($data_cek['jekel'] == "Laki-Laki") echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
-						else echo "<option value='Laki-Laki'>Laki-Laki</option>";
+						if ($data_cek['jekel'] == "Laki-Laki")
+							echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
+						else
+							echo "<option value='Laki-Laki'>Laki-Laki</option>";
 
-						if ($data_cek['jekel'] == "Perempuan") echo "<option value='Perempuan' selected>Perempuan</option>";
-						else echo "<option value='Perempuan'>Perempuan</option>";
+						if ($data_cek['jekel'] == "Perempuan")
+							echo "<option value='Perempuan' selected>Perempuan</option>";
+						else
+							echo "<option value='Perempuan'>Perempuan</option>";
 						?>
 					</select>
 				</div>
@@ -62,8 +67,8 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Tgl Datang</label>
 				<div class="col-sm-3">
-					<input type="date" class="form-control" id="tgl_datang" name="tgl_datang" value="<?php echo $data_cek['tgl_datang']; ?>"
-						required>
+					<input type="date" class="form-control" id="tgl_datang" name="tgl_datang"
+						value="<?php echo $data_cek['tgl_datang']; ?>" required>
 				</div>
 			</div>
 
@@ -77,13 +82,13 @@ if (isset($_GET['kode'])) {
 						$query = "select * from tb_pdd";
 						$hasil = mysqli_query($koneksi, $query);
 						while ($row = mysqli_fetch_array($hasil)) {
-						?>
+							?>
 							<option value="<?php echo $row['id_pend'] ?>" <?= $data_cek['id_pend'] == $row['id_pend'] ? "selected" : null ?>>
 								<?php echo $row['nik'] ?>
 								-
 								<?php echo $row['nama'] ?>
 							</option>
-						<?php
+							<?php
 						}
 						?>
 					</select>
@@ -102,41 +107,41 @@ if (isset($_GET['kode'])) {
 <?php
 
 if (isset($_POST['Ubah'])) {
-    // Cek NIK duplikat di semua tabel sebelum update
-    $nik = $_POST['nik'];
-    $id_datang = $_POST['id_datang'];
-    $tables_to_check = ['tb_pdd', 'tb_datang', 'tb_lahir'];
-    $nik_exists = false;
-    $table_found = '';
-    
-    // Cek NIK di tabel yang menggunakan kolom nik
-    foreach ($tables_to_check as $table) {
-        if ($table === 'tb_datang') {
-            // Untuk tabel yang sama, cek apakah NIK digunakan oleh record lain
-            $cek_query = "SELECT COUNT(*) as count FROM $table WHERE nik = '$nik' AND id_datang != '$id_datang'";
-        } else {
-            $cek_query = "SELECT COUNT(*) as count FROM $table WHERE nik = '$nik'";
-        }
-        
-        $cek_result = mysqli_query($koneksi, $cek_query);
-        $cek_data = mysqli_fetch_assoc($cek_result);
-        
-        if ($cek_data['count'] > 0) {
-            $nik_exists = true;
-            $table_names = [
-                'tb_pdd' => 'Penduduk',
-                'tb_datang' => 'Pendatang', 
-                'tb_lahir' => 'Kelahiran'
-            ];
-            $table_found = $table_names[$table];
-            break;
-        }
-    }
-    
+	// Cek NIK duplikat di semua tabel sebelum update
+	$nik = $_POST['nik'];
+	$id_datang = $_POST['id_datang'];
+	$tables_to_check = ['tb_pdd', 'tb_datang', 'tb_lahir'];
+	$nik_exists = false;
+	$table_found = '';
 
-    
-    if ($nik_exists) {
-        echo "<script>
+	// Cek NIK di tabel yang menggunakan kolom nik
+	foreach ($tables_to_check as $table) {
+		if ($table === 'tb_datang') {
+			// Untuk tabel yang sama, cek apakah NIK digunakan oleh record lain
+			$cek_query = "SELECT COUNT(*) as count FROM $table WHERE nik = '$nik' AND id_datang != '$id_datang'";
+		} else {
+			$cek_query = "SELECT COUNT(*) as count FROM $table WHERE nik = '$nik'";
+		}
+
+		$cek_result = mysqli_query($koneksi, $cek_query);
+		$cek_data = mysqli_fetch_assoc($cek_result);
+
+		if ($cek_data['count'] > 0) {
+			$nik_exists = true;
+			$table_names = [
+				'tb_pdd' => 'Penduduk',
+				'tb_datang' => 'Pendatang',
+				'tb_lahir' => 'Kelahiran'
+			];
+			$table_found = $table_names[$table];
+			break;
+		}
+	}
+
+
+
+	if ($nik_exists) {
+		echo "<script>
             Swal.fire({
                 title: 'Gagal!',
                 text: 'NIK sudah terdaftar di data $table_found',
@@ -147,33 +152,33 @@ if (isset($_POST['Ubah'])) {
                     window.location = 'index.php?page=data-datang';
                 }
             })</script>";
-    } else {
-        $sql_ubah = "UPDATE tb_datang SET 
+	} else {
+		$sql_ubah = "UPDATE tb_datang SET 
             nik='" . $_POST['nik'] . "',
             nama_datang='" . $_POST['nama_datang'] . "',
             jekel='" . $_POST['jekel'] . "',
             tgl_datang='" . $_POST['tgl_datang'] . "',
             pelapor='" . $_POST['pelapor'] . "'
             WHERE id_datang='" . $_POST['id_datang'] . "'";
-        $query_ubah = mysqli_query($koneksi, $sql_ubah);
-        mysqli_close($koneksi);
+		$query_ubah = mysqli_query($koneksi, $sql_ubah);
+		mysqli_close($koneksi);
 
-	if ($query_ubah) {
-		echo "<script>
+		if ($query_ubah) {
+			echo "<script>
       Swal.fire({title: 'Ubah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
       }).then((result) => {if (result.value)
         {window.location = 'index.php?page=data-datang';
         }
       })</script>";
-	} else {
-		echo "<script>
+		} else {
+			echo "<script>
       Swal.fire({title: 'Ubah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
       }).then((result) => {if (result.value)
         {window.location = 'index.php?page=data-datang';
         }
       })</script>";
+		}
 	}
-    }
 }
 ?>
 
@@ -201,7 +206,7 @@ if (isset($_POST['Ubah'])) {
 
 	function checkFormFilled() {
 		let filled = true;
-		requiredFields.forEach(function(fieldId) {
+		requiredFields.forEach(function (fieldId) {
 			const el = document.getElementById(fieldId);
 			if (el) {
 				if (el.tagName === 'SELECT') {
@@ -216,14 +221,14 @@ if (isset($_POST['Ubah'])) {
 		submitBtn.disabled = !filled;
 	}
 
-	nikInput.addEventListener('input', function() {
+	nikInput.addEventListener('input', function () {
 		const nik = this.value;
 		nikValid = nik.length === 16;
 		if (nikValid) {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '/Sistem-Data-Kependudukan/admin/check_nik.php', true);
+			xhr.open('POST', '../check_nik.php', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onreadystatechange = function() {
+			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					try {
 						const response = JSON.parse(xhr.responseText);
@@ -262,7 +267,7 @@ if (isset($_POST['Ubah'])) {
 	});
 
 	// Validasi awal saat halaman dimuat
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		const nik = nikInput.value;
 		nikValid = nik.length === 16;
 		if (nikValid) {

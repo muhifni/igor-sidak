@@ -85,7 +85,8 @@ include "inc/koneksi.php";
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="index.php" class="brand-link">
-				<img src="dist/img/logo_Sumba_Barat_Daya.jpg" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+				<img src="dist/img/logo_Sumba_Barat_Daya.jpg" alt="AdminLTE Logo" class="brand-image"
+					style="opacity: .8">
 				<span class="brand-text"> SIDAK</span>
 			</a>
 
@@ -108,7 +109,8 @@ include "inc/koneksi.php";
 
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+						data-accordion="false">
 						<?php
 						$active_page = isset($_GET['page']) ? $_GET['page'] : '';
 						?>
@@ -116,7 +118,7 @@ include "inc/koneksi.php";
 						<!-- Level  -->
 						<?php
 						if ($data_level == "Administrator") {
-						?>
+							?>
 							<li class="nav-item">
 								<a href="index.php" class="nav-link <?php echo ($active_page == '') ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-tachometer-alt"></i>
@@ -126,8 +128,10 @@ include "inc/koneksi.php";
 								</a>
 							</li>
 
-							<li class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
-								<a href="#" class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-table"></i>
 									<p>
 										Kelola Data
@@ -136,13 +140,22 @@ include "inc/koneksi.php";
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="?page=data-pend" class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-pend"
+											class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Penduduk</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=data-kartu" class="nav-link <?php echo (strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-lahir"
+											class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Lahir</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-kartu"
+											class="nav-link <?php echo (strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Kartu Keluarga</p>
 										</a>
@@ -150,8 +163,10 @@ include "inc/koneksi.php";
 								</ul>
 							</li>
 
-							<li class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
-								<a href="#" class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-cogs"></i>
 									<p>
 										Sirkulasi Penduduk
@@ -160,26 +175,23 @@ include "inc/koneksi.php";
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="?page=data-lahir" class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0) ? 'active' : ''; ?>">
-											<i class="nav-icon far fa-circle text-warning"></i>
-											<p>Data Lahir</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="?page=data-mendu" class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-mendu"
+											class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Meninggal</p>
 										</a>
 									</li>
 
 									<li class="nav-item">
-										<a href="?page=data-datang" class="nav-link <?php echo (strpos($active_page, 'data-datang') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-datang"
+											class="nav-link <?php echo (strpos($active_page, 'data-datang') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Pendatang</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=data-pindah" class="nav-link <?php echo (strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-pindah"
+											class="nav-link <?php echo (strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Pindah</p>
 										</a>
@@ -187,8 +199,10 @@ include "inc/koneksi.php";
 								</ul>
 							</li>
 
-							<li class="nav-item has-treeview <?php echo (strpos($active_page, 'suket-') === 0) ? 'menu-open' : ''; ?>">
-								<a href="#" class="nav-link <?php echo (strpos($active_page, 'suket-') === 0) ? 'active' : ''; ?>">
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'suket-') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'suket-') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-file"></i>
 									<p>
 										Kelola Surat
@@ -198,42 +212,55 @@ include "inc/koneksi.php";
 								<ul class="nav nav-treeview">
 
 									<li class="nav-item">
-										<a href="?page=suket-domisili" class="nav-link <?php echo (strpos($active_page, 'suket-domisili') === 0) ? 'active' : ''; ?>">
+										<a href="?page=suket-domisili"
+											class="nav-link <?php echo (strpos($active_page, 'suket-domisili') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Domisili</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=suket-lahir" class="nav-link <?php echo (strpos($active_page, 'suket-lahir') === 0) ? 'active' : ''; ?>">
+										<a href="?page=suket-lahir"
+											class="nav-link <?php echo (strpos($active_page, 'suket-lahir') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Kelahiran</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=suket-mati" class="nav-link <?php echo (strpos($active_page, 'suket-mati') === 0) ? 'active' : ''; ?>">
+										<a href="?page=suket-mati"
+											class="nav-link <?php echo (strpos($active_page, 'suket-mati') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Kematian</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=suket-datang" class="nav-link <?php echo (strpos($active_page, 'suket-datang') === 0) ? 'active' : ''; ?>">
+										<a href="?page=suket-datang"
+											class="nav-link <?php echo (strpos($active_page, 'suket-datang') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Pendatang</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=suket-pindah" class="nav-link <?php echo (strpos($active_page, 'suket-pindah') === 0) ? 'active' : ''; ?>">
+										<a href="?page=suket-pindah"
+											class="nav-link <?php echo (strpos($active_page, 'suket-pindah') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Pindah</p>
 										</a>
 									</li>
+									<li class="nav-item">
+										<a href="?page=suket-kk"
+											class="nav-link <?php echo (strpos($active_page, 'suket-kk') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Pengantar KK</p>
+										</a>
+									</li>
 								</ul>
-							</li>							
+							</li>
 
 							<li class="nav-header">Setting</li>
 
 							<li class="nav-item">
-								<a href="?page=data-pengguna" class="nav-link <?php echo (strpos($active_page, 'data-pengguna') === 0) ? 'active' : ''; ?>">
+								<a href="?page=data-pengguna"
+									class="nav-link <?php echo (strpos($active_page, 'data-pengguna') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-user"></i>
 									<p>
 										Pengguna Sistem
@@ -241,9 +268,9 @@ include "inc/koneksi.php";
 								</a>
 							</li>
 
-						<?php
+							<?php
 						} elseif ($data_level == "Petugas") {
-						?>
+							?>
 
 							<li class="nav-item">
 								<a href="index.php" class="nav-link <?php echo ($active_page == '') ? 'active' : ''; ?>">
@@ -254,8 +281,10 @@ include "inc/koneksi.php";
 								</a>
 							</li>
 
-							<li class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
-								<a href="#" class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-table"></i>
 									<p>
 										Kelola Data
@@ -264,13 +293,22 @@ include "inc/koneksi.php";
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="?page=data-pend" class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-pend"
+											class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Penduduk</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=data-kartu" class="nav-link <?php echo (strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-lahir"
+											class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Lahir</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-kartu"
+											class="nav-link <?php echo (strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Kartu Keluarga</p>
 										</a>
@@ -278,8 +316,10 @@ include "inc/koneksi.php";
 								</ul>
 							</li>
 
-							<li class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
-								<a href="#" class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-cogs"></i>
 									<p>
 										Sirkulasi Penduduk
@@ -288,26 +328,219 @@ include "inc/koneksi.php";
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="?page=data-lahir" class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0) ? 'active' : ''; ?>">
-											<i class="nav-icon far fa-circle text-warning"></i>
-											<p>Data Lahir</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="?page=data-mendu" class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-mendu"
+											class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Meninggal</p>
 										</a>
 									</li>
 
 									<li class="nav-item">
-										<a href="?page=data-datang" class="nav-link <?php echo (strpos($active_page, 'data-datang') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-datang"
+											class="nav-link <?php echo (strpos($active_page, 'data-datang') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Pendatang</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=data-pindah" class="nav-link <?php echo (strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+										<a href="?page=data-pindah"
+											class="nav-link <?php echo (strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Pindah</p>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-kartu"
+											class="nav-link <?php echo (strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Kartu Keluarga</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+									<i class="nav-icon fas fa-cogs"></i>
+									<p>
+										Sirkulasi Penduduk
+										<i class="fas fa-angle-left right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="?page=data-mendu"
+											class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Meninggal</p>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="?page=data-datang"
+											class="nav-link <?php echo (strpos($active_page, 'data-datang') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Pendatang</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-pindah"
+											class="nav-link <?php echo (strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Pindah</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'suket-') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'suket-') === 0) ? 'active' : ''; ?>">
+									<i class="nav-icon fas fa-file"></i>
+									<p>
+										Kelola Surat
+										<i class="fas fa-angle-left right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+
+									<li class="nav-item">
+										<a href="?page=suket-domisili"
+											class="nav-link <?php echo (strpos($active_page, 'suket-domisili') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Keterangan Domisili</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=suket-lahir"
+											class="nav-link <?php echo (strpos($active_page, 'suket-lahir') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Keterangan Kelahiran</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=suket-mati"
+											class="nav-link <?php echo (strpos($active_page, 'suket-mati') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Keterangan Kematian</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=suket-datang"
+											class="nav-link <?php echo (strpos($active_page, 'suket-datang') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Keterangan Pendatang</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=suket-pindah"
+											class="nav-link <?php echo (strpos($active_page, 'suket-pindah') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Keterangan Pindah</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=suket-kk"
+											class="nav-link <?php echo (strpos($active_page, 'suket-kk') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Pengantar KK</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+
+							<li class="nav-header">Setting</li>
+
+							<li class="nav-item">
+								<a href="?page=data-pengguna"
+									class="nav-link <?php echo (strpos($active_page, 'data-pengguna') === 0) ? 'active' : ''; ?>">
+									<i class="nav-icon fas fa-user"></i>
+									<p>
+										Pengguna Sistem
+									</p>
+								</a>
+							</li>
+
+							<?php
+						} elseif ($data_level == "Petugas") {
+							?>
+
+							<li class="nav-item">
+								<a href="index.php" class="nav-link <?php echo ($active_page == '') ? 'active' : ''; ?>">
+									<i class="nav-icon fas fa-tachometer-alt"></i>
+									<p>
+										Dashboard
+									</p>
+								</a>
+							</li>
+
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+									<i class="nav-icon fas fa-table"></i>
+									<p>
+										Kelola Data
+										<i class="fas fa-angle-left right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="?page=data-pend"
+											class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Penduduk</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-lahir"
+											class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Lahir</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-kartu"
+											class="nav-link <?php echo (strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Kartu Keluarga</p>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+
+							<li
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								<a href="#"
+									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+									<i class="nav-icon fas fa-cogs"></i>
+									<p>
+										Sirkulasi Penduduk
+										<i class="fas fa-angle-left right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="?page=data-mendu"
+											class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Meninggal</p>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="?page=data-datang"
+											class="nav-link <?php echo (strpos($active_page, 'data-datang') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Pendatang</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=data-pindah"
+											class="nav-link <?php echo (strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Pindah</p>
 										</a>
@@ -326,46 +559,53 @@ include "inc/koneksi.php";
 								<ul class="nav nav-treeview">
 
 									<li class="nav-item">
-										<a href="#" class="nav-link">
+										<a href="?page=suket-domisili" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Domisili</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="#" class="nav-link">
+										<a href="?page=suket-lahir" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Kelahiran</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="#" class="nav-link">
+										<a href="?page=suket-mati" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Kematian</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="#" class="nav-link">
+										<a href="?page=suket-datang" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Pendatang</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="#" class="nav-link">
+										<a href="?page=suket-pindah" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat Keterangan Pindah</p>
 										</a>
 									</li>
+									<li class="nav-item">
+										<a href="?page=suket-kk" class="nav-link">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Surat Pengantar KK</p>
+										</a>
+									</li>
 								</ul>
-							</li>							
+							</li>
 
 							<li class="nav-header">Setting</li>
 
-						<?php
+							<?php
 						}
 						?>
 
 						<li class="nav-item">
-							<a onclick="return confirm('Apakah anda yakin akan keluar ?')" href="logout.php" class="nav-link">
+							<a onclick="return confirm('Apakah anda yakin akan keluar ?')" href="logout.php"
+								class="nav-link">
 								<i class="nav-icon fas fa-arrow-circle-right"></i>
 								<p>
 									Logout
@@ -519,6 +759,9 @@ include "inc/koneksi.php";
 							case 'suket-pindah':
 								include "surat/suket_pindah.php";
 								break;
+							case 'suket-kk':
+								include "surat/suket_kk.php";
+								break;
 
 
 
@@ -582,7 +825,7 @@ include "inc/koneksi.php";
 	<script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
 	<script>
-		$(function() {
+		$(function () {
 			$("#example1").DataTable();
 			$('#example2').DataTable({
 				"paging": true,
@@ -596,7 +839,7 @@ include "inc/koneksi.php";
 	</script>
 
 	<script>
-		$(function() {
+		$(function () {
 			//Initialize Select2 Elements
 			$('.select2').select2()
 
