@@ -67,12 +67,12 @@ if (isset($_GET['kode'])) {
 							// Ambil penduduk yang statusnya 'Ada' dan BELUM menjadi anggota KK ini
 							$sql = $koneksi->query("
                 		    SELECT p.id_pend, p.nik, p.nama
-                		    FROM tb_pdd p
-                		    WHERE p.status = 'Ada'
+	              	  		FROM tb_pdd p
+ 	               		    WHERE p.status = 'Ada'
                 		      AND p.id_pend NOT IN (
-                		          SELECT id_pend FROM tb_anggota WHERE id_kk = '$karkel'
+                		          SELECT id_pend FROM tb_anggota
                 		      )
-                		    ORDER BY p.nama ASC
+                		    ORDER BY p.nama ASC;
                 		");
 
 							while ($data = $sql->fetch_assoc()) {
