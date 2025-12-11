@@ -226,7 +226,7 @@ if (isset($_POST['Ubah'])) {
 		nikValid = nik.length === 16;
 		if (nikValid) {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '../check_nik.php', true);
+			xhr.open('POST', '../admin/check_nik.php', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {

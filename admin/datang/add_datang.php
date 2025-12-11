@@ -10,7 +10,8 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">NIK</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" minlength="16" maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+					<input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" minlength="16"
+						maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
 					<small id="nik-status" class="form-text text-muted">Masukkan 16 digit NIK</small>
 				</div>
 			</div>
@@ -18,7 +19,8 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Nama</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nama_datang" name="nama_datang" placeholder="Nama Pendatang" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="nama_datang" name="nama_datang"
+						placeholder="Nama Pendatang" required oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
@@ -50,13 +52,13 @@
 						$query = "select * from tb_pdd where status='Ada'";
 						$hasil = mysqli_query($koneksi, $query);
 						while ($row = mysqli_fetch_array($hasil)) {
-						?>
+							?>
 							<option value="<?php echo $row['id_pend'] ?>">
 								<?php echo $row['nik'] ?>
 								-
 								<?php echo $row['nama'] ?>
 							</option>
-						<?php
+							<?php
 						}
 						?>
 					</select>
@@ -145,7 +147,7 @@ if (isset($_POST['Simpan'])) {
 
 <script>
 	function capitalizeWords(input) {
-		input.value = input.value.replace(/\b\w+/g, function(word) {
+		input.value = input.value.replace(/\b\w+/g, function (word) {
 			return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 		});
 	}
@@ -160,7 +162,7 @@ if (isset($_POST['Simpan'])) {
 
 	function checkFormFilled() {
 		let filled = true;
-		requiredFields.forEach(function(fieldId) {
+		requiredFields.forEach(function (fieldId) {
 			const el = document.getElementById(fieldId);
 			if (el) {
 				if (el.tagName === 'SELECT') {
@@ -175,14 +177,14 @@ if (isset($_POST['Simpan'])) {
 		submitBtn.disabled = !filled;
 	}
 
-	nikInput.addEventListener('input', function() {
+	nikInput.addEventListener('input', function () {
 		const nik = this.value;
 		nikValid = nik.length === 16;
 		if (nikValid) {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '../check_nik.php', true);
+			xhr.open('POST', '../admin/check_nik.php', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onreadystatechange = function() {
+			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					try {
 						const response = JSON.parse(xhr.responseText);

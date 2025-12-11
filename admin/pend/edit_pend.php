@@ -19,15 +19,17 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row d-none">
 				<label class="col-sm-2 col-form-label">Id Penduduk</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="id_pend" name="id_pend" value="<?php echo $data_cek['id_pend']; ?>"
-						readonly />
+					<input type="text" class="form-control" id="id_pend" name="id_pend"
+						value="<?php echo $data_cek['id_pend']; ?>" readonly />
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">NIK</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nik" name="nik" value="<?php echo $data_cek['nik']; ?>" minlength="16" maxlength="16" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+					<input type="text" class="form-control" id="nik" name="nik" value="<?php echo $data_cek['nik']; ?>"
+						minlength="16" maxlength="16" required inputmode="numeric" pattern="[0-9]*"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 					<small id="nik-status" class="form-text text-muted">Masukkan 16 digit NIK</small>
 				</div>
 			</div>
@@ -35,17 +37,20 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Nama</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="nama" name="nama" value="<?php echo $data_cek['nama']; ?>" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="nama" name="nama"
+						value="<?php echo $data_cek['nama']; ?>" required oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">TTL</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="tempat_lh" name="tempat_lh" value="<?php echo $data_cek['tempat_lh']; ?>" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="tempat_lh" name="tempat_lh"
+						value="<?php echo $data_cek['tempat_lh']; ?>" required oninput="capitalizeWords(this)">
 				</div>
 				<div class="col-sm-3">
-					<input type="date" class="form-control" id="tgl_lh" name="tgl_lh" value="<?php echo $data_cek['tgl_lh']; ?>" />
+					<input type="date" class="form-control" id="tgl_lh" name="tgl_lh"
+						value="<?php echo $data_cek['tgl_lh']; ?>" />
 				</div>
 			</div>
 
@@ -56,11 +61,15 @@ if (isset($_GET['kode'])) {
 						<option value="">-- Pilih jekel --</option>
 						<?php
 						//menhecek data yg dipilih sebelumnya
-						if ($data_cek['jekel'] == "Laki-Laki" || $data_cek['jekel'] == "Laki-Laki") echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
-						else echo "<option value='Laki-Laki'>Laki-Laki</option>";
+						if ($data_cek['jekel'] == "Laki-Laki" || $data_cek['jekel'] == "Laki-Laki")
+							echo "<option value='Laki-Laki' selected>Laki-Laki</option>";
+						else
+							echo "<option value='Laki-Laki'>Laki-Laki</option>";
 
-						if ($data_cek['jekel'] == "Perempuan" || $data_cek['jekel'] == "Perempuan") echo "<option value='Perempuan' selected>Perempuan</option>";
-						else echo "<option value='Perempuan'>Perempuan</option>";
+						if ($data_cek['jekel'] == "Perempuan" || $data_cek['jekel'] == "Perempuan")
+							echo "<option value='Perempuan' selected>Perempuan</option>";
+						else
+							echo "<option value='Perempuan'>Perempuan</option>";
 						?>
 					</select>
 				</div>
@@ -69,24 +78,30 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Desa</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="desa" name="desa" value="<?php echo $data_cek['desa']; ?>" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="desa" name="desa"
+						value="<?php echo $data_cek['desa']; ?>" required oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">RT/RW</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="rt" name="rt" value="<?php echo $data_cek['rt']; ?>" maxlength="3" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+					<input type="text" class="form-control" id="rt" name="rt" value="<?php echo $data_cek['rt']; ?>"
+						maxlength="3" required inputmode="numeric" pattern="[0-9]*"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 				</div>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="rw" name="rw" value="<?php echo $data_cek['rw']; ?>" maxlength="3" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+					<input type="text" class="form-control" id="rw" name="rw" value="<?php echo $data_cek['rw']; ?>"
+						maxlength="3" required inputmode="numeric" pattern="[0-9]*"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Agama</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="agama" name="agama" value="<?php echo $data_cek['agama']; ?>" />
+					<input type="text" class="form-control" id="agama" name="agama"
+						value="<?php echo $data_cek['agama']; ?>" />
 				</div>
 			</div>
 
@@ -97,17 +112,25 @@ if (isset($_GET['kode'])) {
 						<option value="">-- Pilih Status --</option>
 						<?php
 						//menhecek data yg dipilih sebelumnya
-						if ($data_cek['kawin'] == "Sudah") echo "<option value='Sudah' selected>Sudah</option>";
-						else echo "<option value='Sudah'>Sudah</option>";
+						if ($data_cek['kawin'] == "Sudah")
+							echo "<option value='Sudah' selected>Sudah</option>";
+						else
+							echo "<option value='Sudah'>Sudah</option>";
 
-						if ($data_cek['kawin'] == "Belum") echo "<option value='Belum' selected>Belum</option>";
-						else echo "<option value='Belum'>Belum</option>";
+						if ($data_cek['kawin'] == "Belum")
+							echo "<option value='Belum' selected>Belum</option>";
+						else
+							echo "<option value='Belum'>Belum</option>";
 
-						if ($data_cek['kawin'] == "Cerai Mati") echo "<option value='Cerai Mati' selected>Cerai Mati</option>";
-						else echo "<option value='Cerai Mati'>Cerai Mati</option>";
+						if ($data_cek['kawin'] == "Cerai Mati")
+							echo "<option value='Cerai Mati' selected>Cerai Mati</option>";
+						else
+							echo "<option value='Cerai Mati'>Cerai Mati</option>";
 
-						if ($data_cek['kawin'] == "Cerai Hidup") echo "<option value='Cerai Hidup' selected>Cerai Hidup</option>";
-						else echo "<option value='Cerai Hidup'>Cerai Hidup</option>";
+						if ($data_cek['kawin'] == "Cerai Hidup")
+							echo "<option value='Cerai Hidup' selected>Cerai Hidup</option>";
+						else
+							echo "<option value='Cerai Hidup'>Cerai Hidup</option>";
 						?>
 					</select>
 				</div>
@@ -116,7 +139,8 @@ if (isset($_GET['kode'])) {
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Pekerjaan</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="pekerjaan" name="pekerjaan" value="<?php echo $data_cek['pekerjaan']; ?>" required oninput="capitalizeWords(this)">
+					<input type="text" class="form-control" id="pekerjaan" name="pekerjaan"
+						value="<?php echo $data_cek['pekerjaan']; ?>" required oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
@@ -130,7 +154,7 @@ if (isset($_GET['kode'])) {
 
 <script>
 	function capitalizeWords(input) {
-		input.value = input.value.replace(/\b\w+/g, function(word) {
+		input.value = input.value.replace(/\b\w+/g, function (word) {
 			return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 		});
 	}
@@ -147,7 +171,7 @@ if (isset($_GET['kode'])) {
 
 	function checkFormFilled() {
 		let filled = true;
-		requiredFields.forEach(function(fieldId) {
+		requiredFields.forEach(function (fieldId) {
 			const el = document.getElementById(fieldId);
 			if (el) {
 				if (el.tagName === 'SELECT') {
@@ -162,15 +186,15 @@ if (isset($_GET['kode'])) {
 		submitBtn.disabled = !filled;
 	}
 
-	nikInput.addEventListener('input', function() {
+	nikInput.addEventListener('input', function () {
 		const nik = this.value;
 		nikValid = nik.length === 16;
 		const idPend = document.getElementById('id_pend') ? document.getElementById('id_pend').value : '';
 		if (nikValid) {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '../check_nik.php', true);
+			xhr.open('POST', '../admin/check_nik.php', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onreadystatechange = function() {
+			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					try {
 						const response = JSON.parse(xhr.responseText);
@@ -214,7 +238,7 @@ if (isset($_GET['kode'])) {
 	form.addEventListener('input', checkFormFilled);
 
 	// Inisialisasi saat halaman dimuat
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		// Validasi NIK awal jika sudah ada data
 		if (nikInput.value.length === 16) {
 			nikValid = true;
