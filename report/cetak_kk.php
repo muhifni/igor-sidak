@@ -107,7 +107,7 @@ if (!$kepalaSudahAda && $data_kk['id_kepala']) {
 
 
 // Pastikan maksimal 10 baris seperti form KK
-$totalBaris = 5;
+$totalBaris = 10;
 ?>
 <!DOCTYPE html>
 <html lang="id">

@@ -43,6 +43,14 @@
             </div>
 
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Anak Ke-<span class="text-danger">*</span></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="anak_ke" name="anak_ke" placeholder="Anak Ke-" required
+                        maxlength="2" pattern="[0-9]{1,2}" title="Anak Ke- harus 1-2 digit angka">
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Keluarga<span class="text-danger">*</span></label>
                 <div class="col-sm-6">
                     <select name="id_kk" id="id_kk" class="form-control select2bs4" required>
@@ -154,12 +162,15 @@ if (isset($_POST['Simpan'])) {
         })</script>";
     } else {
         // 1. Simpan ke tabel kelahiran
-        $sql_simpan = "INSERT INTO tb_lahir (nik, nama, tgl_lh, jekel, id_kk) VALUES (
+        $sql_simpan = "INSERT INTO tb_lahir (nik, nama, tgl_lh, jekel, id_kk, id_ibu, id_bapak, anak_ke) VALUES (
         '" . $_POST['nik'] . "',
         '" . $_POST['nama'] . "',
         '" . $_POST['tgl_lh'] . "',
         '" . $_POST['jekel'] . "',
-        '" . $_POST['id_kk'] . "')";
+        '" . $_POST['id_kk'] . "',
+        '" . $_POST['id_ibu'] . "',
+        '" . $_POST['id_bapak'] . "',
+        '" . $_POST['anak_ke'] . "')";
         $query_simpan = mysqli_query($koneksi, $sql_simpan);
 
         if ($query_simpan) {
@@ -249,6 +260,14 @@ if (isset($_POST['Simpan'])) {
     function capitalizeWords(input) {
         input.value = input.value.replace(/\b\w+/g, function (word) {
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        });
+    }
+
+    // Validasi Anak Ke hanya angka
+    const anakKeInput = document.getElementById('anak_ke');
+    if (anakKeInput) {
+        anakKeInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     }
 

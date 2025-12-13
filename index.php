@@ -253,6 +253,14 @@ include "inc/koneksi.php";
 											<p>Surat KK</p>
 										</a>
 									</li>
+									<li class="nav-item">
+										<a href="?page=akta-kelahiran"
+											class="nav-link <?php echo (strpos($active_page, 'akta-kelahiran') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Akta Kelahiran</p>
+										</a>
+									</li>
+
 								</ul>
 							</li>
 
@@ -448,6 +456,13 @@ include "inc/koneksi.php";
 											<p>Surat KK</p>
 										</a>
 									</li>
+									<li class="nav-item">
+										<a href="?page=akta-kelahiran"
+											class="nav-link <?php echo (strpos($active_page, 'akta-kelahiran') === 0) ? 'active' : ''; ?>">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Akta Kelahiran</p>
+										</a>
+									</li>
 								</ul>
 							</li>
 
@@ -592,6 +607,12 @@ include "inc/koneksi.php";
 										<a href="?page=suket-kk" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Surat KK</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="?page=akta-kelahiran" class="nav-link">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Akta Kelahiran</p>
 										</a>
 									</li>
 								</ul>
@@ -761,6 +782,9 @@ include "inc/koneksi.php";
 								break;
 							case 'suket-kk':
 								include "surat/suket_kk.php";
+								break;
+							case 'akta-kelahiran':
+								include "surat/akta_kelahiran.php";
 								break;
 
 
