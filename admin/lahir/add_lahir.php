@@ -8,7 +8,7 @@
         <div class="card-body">
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">NIK</label>
+                <label class="col-sm-2 col-form-label">NIK<span class="text-danger">*</span></label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK Bayi" required
                         maxlength="16" pattern="[0-9]{16}" title="NIK harus 16 digit angka">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Nama</label>
+                <label class="col-sm-2 col-form-label">Nama<span class="text-danger">*</span></label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Bayi" required
                         oninput="capitalizeWords(this)">
@@ -25,14 +25,14 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Tgl Lahir</label>
+                <label class="col-sm-2 col-form-label">Tgl Lahir<span class="text-danger">*</span></label>
                 <div class="col-sm-3">
                     <input type="date" class="form-control" id="tgl_lh" name="tgl_lh" required>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                <label class="col-sm-2 col-form-label">Jenis Kelamin<span class="text-danger">*</span></label>
                 <div class="col-sm-3">
                     <select name="jekel" id="jekel" class="form-control">
                         <option value="">- Pilih -</option>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Keluarga</label>
+                <label class="col-sm-2 col-form-label">Keluarga<span class="text-danger">*</span></label>
                 <div class="col-sm-6">
                     <select name="id_kk" id="id_kk" class="form-control select2bs4" required>
                         <option selected="selected">- Pilih KK -</option>
@@ -64,6 +64,56 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Ibu<span class="text-danger">*</span></label>
+                <div class="col-sm-6">
+                    <select name="id_ibu" id="id_ibu" class="form-control select2bs4" required>
+                        <option selected="selected">- Pilih Ibu -</option>
+                        <?php
+                        // ambil data dari database
+                        $query = "
+                        SELECT p.id_pend, p.nama FROM tb_pdd p
+                        WHERE p.jekel = 'Perempuan'
+                        ";
+                        $hasil = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($hasil)) {
+                            ?>
+                            <option value="<?php echo $row['id_pend'] ?>">
+                                <?php echo $row['nama'] ?>
+                            </option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Bapak</label>
+                <div class="col-sm-6">
+                    <select name="id_bapak" id="id_bapak" class="form-control select2bs4">
+                        <option selected="selected">- Pilih Bapak -</option>
+                        <?php
+                        // ambil data dari database
+                        $query = "
+                        SELECT p.id_pend, p.nama FROM tb_pdd p
+                        WHERE p.jekel = 'Laki-Laki'
+                        ";
+                        $hasil = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($hasil)) {
+                            ?>
+                            <option value="<?php echo $row['id_pend'] ?>">
+                                <?php echo $row['nama'] ?>
+                            </option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+
 
             <div class="card-footer">
                 <input type="submit" name="Simpan" value="Simpan" class="btn btn-info">

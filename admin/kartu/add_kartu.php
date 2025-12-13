@@ -38,10 +38,38 @@
 			</div>
 
 			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Provinsi</label>
+				<div class="col-sm-6">
+					<select class="form-control" id="prov" name="prov" data-code="" required>
+						<option value="">- Memuat data provinsi... -</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Kabupaten/Kota</label>
+				<div class="col-sm-6">
+					<select class="form-control" id="kab" name="kab" data-code="" required disabled>
+						<option value="">- Pilih Provinsi Terlebih Dahulu -</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Kecamatan</label>
+				<div class="col-sm-6">
+					<select class="form-control" id="kec" name="kec" data-code="" required disabled>
+						<option value="">- Pilih Kabupaten/Kota Terlebih Dahulu -</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Desa/Kelurahan</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="desa" name="desa" placeholder="Desa/Kelurahan" required
-						oninput="capitalizeWords(this)">
+					<select class="form-control" id="desa" name="desa" required disabled>
+						<option value="">- Pilih Kecamatan Terlebih Dahulu -</option>
+					</select>
 				</div>
 			</div>
 
@@ -54,30 +82,6 @@
 				<div class="col-sm-3">
 					<input type="text" class="form-control" id="rw" name="rw" placeholder="RW" maxlength="3"
 						oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Kecamatan</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="kec" name="kec" placeholder="Kecamatan" required
-						oninput="capitalizeWords(this)">
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Kabupaten</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="kab" name="kab" placeholder="Kabupaten" required
-						oninput="capitalizeWords(this)">
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Provinsi</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="prov" name="prov" placeholder="Provinsi" required
-						oninput="capitalizeWords(this)">
 				</div>
 			</div>
 
@@ -208,11 +212,154 @@ if (isset($_POST['Simpan'])) {
 		const submitBtn = document.getElementById('btn-simpan');
 		const noKkInput = document.getElementById('no_kk');
 		const kkStatus = document.getElementById('kk-status');
+		const provSelect = document.getElementById('prov');
+		const kabSelect = document.getElementById('kab');
+		const kecSelect = document.getElementById('kec');
+		const desaSelect = document.getElementById('desa');
 		const requiredFields = [
 			'no_kk', 'kepala', 'desa', 'rt', 'rw', 'kec', 'kab', 'prov'
 		];
 		let kkValid = false;
 		let kkDuplicate = false;
+
+		// Fetch provinces from API via local proxy
+		fetch('admin/wilayah_indonesia/get_provinces.php')
+			.then(response => response.json())
+			.then(result => {
+				if (result.data && Array.isArray(result.data)) {
+					provSelect.innerHTML = '<option value="">- Pilih Provinsi -</option>';
+					result.data.forEach(province => {
+						const option = document.createElement('option');
+						option.value = province.name;
+						option.textContent = province.name;
+						option.setAttribute('data-code', province.code);
+						provSelect.appendChild(option);
+					});
+				}
+			})
+			.catch(error => {
+				console.error('Error loading provinces:', error);
+				provSelect.innerHTML = '<option value="">- Gagal memuat data provinsi -</option>';
+			});
+
+		// When province changes, load regencies
+		provSelect.addEventListener('change', function() {
+			const selectedOption = this.options[this.selectedIndex];
+			const provinceCode = selectedOption.getAttribute('data-code');
+			
+			// Reset dependent dropdowns
+			kabSelect.innerHTML = '<option value="">- Memuat data kabupaten/kota... -</option>';
+			kabSelect.disabled = true;
+			kecSelect.innerHTML = '<option value="">- Pilih Kabupaten/Kota Terlebih Dahulu -</option>';
+			kecSelect.disabled = true;
+			desaSelect.innerHTML = '<option value="">- Pilih Kecamatan Terlebih Dahulu -</option>';
+			desaSelect.disabled = true;
+			
+			if (provinceCode) {
+				// Store province code
+				provSelect.setAttribute('data-code', provinceCode);
+				
+				// Fetch regencies
+				fetch(`admin/wilayah_indonesia/get_regencies.php?province_code=${provinceCode}`)
+					.then(response => response.json())
+					.then(result => {
+						if (result.data && Array.isArray(result.data)) {
+							kabSelect.innerHTML = '<option value="">- Pilih Kabupaten/Kota -</option>';
+							result.data.forEach(regency => {
+								const option = document.createElement('option');
+								option.value = regency.name;
+								option.textContent = regency.name;
+								option.setAttribute('data-code', regency.code);
+								kabSelect.appendChild(option);
+							});
+							kabSelect.disabled = false;
+						}
+					})
+					.catch(error => {
+						console.error('Error loading regencies:', error);
+						kabSelect.innerHTML = '<option value="">- Gagal memuat data kabupaten/kota -</option>';
+					});
+			}
+			checkFormFilled();
+		});
+
+		// When regency changes, load districts
+		kabSelect.addEventListener('change', function() {
+			const selectedOption = this.options[this.selectedIndex];
+			const regencyCode = selectedOption.getAttribute('data-code');
+			
+			// Reset dependent dropdowns
+			kecSelect.innerHTML = '<option value="">- Memuat data kecamatan... -</option>';
+			kecSelect.disabled = true;
+			desaSelect.innerHTML = '<option value="">- Pilih Kecamatan Terlebih Dahulu -</option>';
+			desaSelect.disabled = true;
+			
+			if (regencyCode) {
+				// Store regency code
+				kabSelect.setAttribute('data-code', regencyCode);
+				
+				// Fetch districts
+				fetch(`admin/wilayah_indonesia/get_districts.php?regency_code=${regencyCode}`)
+					.then(response => response.json())
+					.then(result => {
+						if (result.data && Array.isArray(result.data)) {
+							kecSelect.innerHTML = '<option value="">- Pilih Kecamatan -</option>';
+							result.data.forEach(district => {
+								const option = document.createElement('option');
+								option.value = district.name;
+								option.textContent = district.name;
+								option.setAttribute('data-code', district.code);
+								kecSelect.appendChild(option);
+							});
+							kecSelect.disabled = false;
+						}
+					})
+					.catch(error => {
+						console.error('Error loading districts:', error);
+						kecSelect.innerHTML = '<option value="">- Gagal memuat data kecamatan -</option>';
+					});
+			}
+			checkFormFilled();
+		});
+
+		// When district changes, load villages
+		kecSelect.addEventListener('change', function() {
+			const selectedOption = this.options[this.selectedIndex];
+			const districtCode = selectedOption.getAttribute('data-code');
+			
+			// Reset dependent dropdown
+			desaSelect.innerHTML = '<option value="">- Memuat data desa/kelurahan... -</option>';
+			desaSelect.disabled = true;
+			
+			if (districtCode) {
+				// Store district code
+				kecSelect.setAttribute('data-code', districtCode);
+				
+				// Fetch villages
+				fetch(`admin/wilayah_indonesia/get_villages.php?district_code=${districtCode}`)
+					.then(response => response.json())
+					.then(result => {
+						if (result.data && Array.isArray(result.data)) {
+							desaSelect.innerHTML = '<option value="">- Pilih Desa/Kelurahan -</option>';
+							result.data.forEach(village => {
+								const option = document.createElement('option');
+								option.value = village.name;
+								option.textContent = village.name;
+								desaSelect.appendChild(option);
+							});
+							desaSelect.disabled = false;
+						}
+					})
+					.catch(error => {
+						console.error('Error loading villages:', error);
+						desaSelect.innerHTML = '<option value="">- Gagal memuat data desa/kelurahan -</option>';
+					});
+			}
+			checkFormFilled();
+		});
+
+		// Trigger form validation when desa changes
+		desaSelect.addEventListener('change', checkFormFilled);
 
 		function checkFormFilled() {
 			let filled = true;
