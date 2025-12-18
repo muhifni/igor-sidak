@@ -38,6 +38,9 @@ if (!$data) {
     die("Data Kelahiran tidak ditemukan.");
 }
 
+// Nama
+$nama_anak = $data['nama'];
+
 // Format tanggal
 $tgl_lahir = date("d-m-Y", strtotime($data['tgl_lh']));
 $tahun_lahir = date("Y", strtotime($data['tgl_lh']));
@@ -675,10 +678,7 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
                     </div>
 
                     <div class="content-line" style="margin-top: 6px;">
-                        telah lahir
-                    </div>
-                    <div class="content-line">
-                        <span class="label-en">was born</span>
+                        <span class="value-field"><?= $nama_anak ?></span>
                     </div>
 
                     <div class="content-line" style="margin-top: 6px;">
