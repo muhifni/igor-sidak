@@ -424,10 +424,10 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
 
         .border-inner {
             position: absolute;
-            top: 12mm;
-            left: 12mm;
-            right: 12mm;
-            bottom: 12mm;
+            top: 10mm;
+            left: 10mm;
+            right: 10mm;
+            bottom: 10mm;
             border: 2px solid #81C784;
             background: white;
             padding: 15mm 20mm;
@@ -539,6 +539,29 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
             min-width: 150px;
             padding: 0 3px;
             font-weight: normal;
+        }
+
+        .name-container {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .name-container::before,
+        .name-container::after {
+            content: "";
+            flex: 1;
+            border-bottom: 2px dotted #000;
+        }
+
+        .name-text {
+            padding: 0 20px;
+            font-size: 14pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .separator {
@@ -677,8 +700,8 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
                         <span class="label-en" style="margin-left: 110px;">on year <?= $tahun_teks_eng ?></span>
                     </div>
 
-                    <div class="content-line" style="margin-top: 6px;">
-                        <span class="value-field"><?= $nama_anak ?></span>
+                    <div class="name-container">
+                        <span class="name-text"><?= htmlspecialchars($nama_anak) ?></span>
                     </div>
 
                     <div class="content-line" style="margin-top: 6px;">
@@ -708,17 +731,11 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
                     </div>
 
                     <div class="issue-info" style="margin-top: 4mm;">
-                        Kepala<br>
-                        <span class="label-en">Head of</span>
-                    </div>
-
-                    <div class="issue-info">
-                        <span class="value-field">Dinas Kependudukan dan Pencatatan Sipil</span><br>
-                        <span class="label-en">Demography and Civil Registration Service</span>
+                        Kepala <span class="value-field"><b>Dinas Kependudukan dan Pencatatan Sipil</b></span><br>
                     </div>
 
                     <!-- Signature -->
-                    <div class="signature-box">
+                    <!-- <div class="signature-box">
                         <div class="signature-title">
                             <?= strtoupper(htmlspecialchars($data['kab'])) ?>
                         </div>
@@ -729,7 +746,7 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
                         <div class="signature-nip">
                             <strong>NIP:</strong> ___________________________
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Stamp Area -->
