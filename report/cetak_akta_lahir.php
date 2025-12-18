@@ -651,7 +651,9 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
 
                 <!-- Logo -->
                 <div class="logo-section">
-                    <div class="garuda-placeholder">🦅</div>
+                    <div class="garuda-placeholder" style="background: none; box-shadow: none;">
+                        <img src="../dist/img/logo-garuda.png" alt="Garuda" style="width: 70px; height: auto;">
+                    </div>
                 </div>
 
                 <!-- Title -->
@@ -721,13 +723,12 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
                     <div class="issue-info">
                         Kutipan ini dikeluarkan di <span
                             class="value-field"><?= htmlspecialchars($data['kab']) ?></span><br>
-                        <span class="label-en">The excerpt is issued</span>
-                        <span class="label-en" style="margin-left: 75px;">in</span>
+                        <span class="label-en" style="margin-right: 155px;">The excerpt is issued in</span>
                     </div>
 
                     <div class="issue-info">
                         pada tanggal <span class="value-field"><?= $tgl_dikeluarkan ?></span><br>
-                        <span class="label-en">on date</span>
+                        <span class="label-en" style="margin-right: 155px;">on date</span>
                     </div>
 
                     <div class="issue-info" style="margin-top: 4mm;">
@@ -748,10 +749,6 @@ $tanggal_lengkap_eng = $tgl_teks_eng . ' of ' . $bulan_teks_eng . ' ' . $tahun_t
                         </div>
                     </div> -->
                 </div>
-
-                <!-- Stamp Area -->
-                <div class="stamp-area"></div>
-
             </div>
         </div>
     </div>
