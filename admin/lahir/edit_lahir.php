@@ -73,13 +73,36 @@ if (isset($_GET['kode'])) {
 			</div>
 
 			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Anak Ke-</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="anak_ke" name="anak_ke"
+						value="<?php echo $data_cek['anak_ke']; ?>" required maxlength="2" pattern="[0-9]{1,2}"
+						title="Anak Ke- harus 1-2 digit angka">
+				</div>
+			</div>
+
+			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Keluarga</label>
 				<div class="col-sm-6">
 					<select name="id_kk" id="id_kk" class="form-control select2bs4" required>
 						<option selected="">- Pilih -</option>
 						<?php
 						// ambil data dari database
-						$query = "SELECT k.*, p.nama as kepala FROM tb_kk k LEFT JOIN tb_pdd p ON k.id_kepala = p.id_pend";
+						$query = "
+                        SELECT 
+                        k.*,
+                        p.nama AS kepala
+                        FROM tb_kk k
+                        LEFT JOIN tb_pdd p ON p.id_pend = k.id_kepala
+                        WHERE EXISTS (
+                        SELECT 1 FROM tb_anggota a1
+                        WHERE a1.id_kk = k.id_kk AND a1.hubungan = 'Kepala Keluarga'
+                        )
+                        AND EXISTS (
+                        SELECT 1 FROM tb_anggota a2
+                        WHERE a2.id_kk = k.id_kk AND a2.hubungan = 'Istri'
+                        )
+                        ";
 						$hasil = mysqli_query($koneksi, $query);
 						while ($row = mysqli_fetch_array($hasil)) {
 							?>
@@ -92,6 +115,7 @@ if (isset($_GET['kode'])) {
 						}
 						?>
 					</select>
+					<small class="text-muted">* Hanya menampilkan KK yang memiliki Kepala Keluarga dan Istri.</small>
 				</div>
 			</div>
 
@@ -140,12 +164,27 @@ if (isset($_POST['Ubah'])) {
 		Swal.fire({title: 'NIK Sudah Terdaftar',text: 'NIK sudah terdaftar di data $table_found',icon: 'error',confirmButtonText: 'OK'
 		})</script>";
 	} else {
+		$id_kk = $_POST['id_kk'];
+
+		// Ambil ID Bapak (Kepala Keluarga) dari tb_anggota
+		$q_bapak = mysqli_query($koneksi, "SELECT id_pend FROM tb_anggota WHERE id_kk='$id_kk' AND hubungan='Kepala Keluarga' LIMIT 1");
+		$d_bapak = mysqli_fetch_assoc($q_bapak);
+		$id_bapak = $d_bapak['id_pend'] ?? '';
+
+		// Ambil ID Ibu (Istri) dari tb_anggota
+		$q_ibu = mysqli_query($koneksi, "SELECT id_pend FROM tb_anggota WHERE id_kk='$id_kk' AND hubungan='Istri' LIMIT 1");
+		$d_ibu = mysqli_fetch_assoc($q_ibu);
+		$id_ibu = $d_ibu['id_pend'] ?? '';
+
 		$sql_ubah = "UPDATE tb_lahir SET 
 			nik='" . $_POST['nik'] . "',
 			nama='" . $_POST['nama'] . "',
 			tgl_lh='" . $_POST['tgl_lh'] . "',
 			jekel='" . $_POST['jekel'] . "',
-			id_kk='" . $_POST['id_kk'] . "'
+			id_kk='$id_kk',
+			id_ibu='$id_ibu',
+			id_bapak='$id_bapak',
+			anak_ke='" . $_POST['anak_ke'] . "'
 			WHERE id_lahir='" . $_POST['id_lahir'] . "'";
 		$query_ubah = mysqli_query($koneksi, $sql_ubah);
 		mysqli_close($koneksi);

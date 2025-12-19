@@ -127,6 +127,7 @@ function anakKeKeInggris($angka)
 // Konversi tanggal (1-31) ke teks
 function tanggalKeIndonesia($tgl)
 {
+    $tgl = (int)$tgl;
     $satuan = ['', 'SATU', 'DUA', 'TIGA', 'EMPAT', 'LIMA', 'ENAM', 'TUJUH', 'DELAPAN', 'SEMBILAN'];
     $belasan = [
         'SEPULUH',
@@ -154,6 +155,7 @@ function tanggalKeIndonesia($tgl)
 
 function tanggalKeInggris($tgl)
 {
+    $tgl = (int)$tgl;
     $ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
     $tens = ['', '', 'twenty', 'thirty'];
     $teens = [
@@ -183,6 +185,7 @@ function tanggalKeInggris($tgl)
 // Konversi bulan ke teks
 function bulanKeIndonesia($bulan)
 {
+    $bulan = (int)$bulan;
     $bulan_indo = [
         1 => 'JANUARI',
         2 => 'FEBRUARI',
@@ -202,6 +205,7 @@ function bulanKeIndonesia($bulan)
 
 function bulanKeInggris($bulan)
 {
+    $bulan = (int)$bulan;
     $bulan_eng = [
         1 => 'January',
         2 => 'February',

@@ -129,9 +129,9 @@ include "inc/koneksi.php";
 							</li>
 
 							<li
-								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-kartu') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
 								<a href="#"
-									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-kartu') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-table"></i>
 									<p>
 										Kelola Data
@@ -164,9 +164,9 @@ include "inc/koneksi.php";
 							</li>
 
 							<li
-								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
 								<a href="#"
-									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+									class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-cogs"></i>
 									<p>
 										Sirkulasi Penduduk
@@ -290,9 +290,9 @@ include "inc/koneksi.php";
 							</li>
 
 							<li
-								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
 								<a href="#"
-									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-table"></i>
 									<p>
 										Kelola Data
@@ -367,9 +367,9 @@ include "inc/koneksi.php";
 							</li>
 
 							<li
-								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
 								<a href="#"
-									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+									class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-cogs"></i>
 									<p>
 										Sirkulasi Penduduk
@@ -492,9 +492,9 @@ include "inc/koneksi.php";
 							</li>
 
 							<li
-								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'menu-open' : ''; ?>">
 								<a href="#"
-									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
+									class="nav-link <?php echo (strpos($active_page, 'data-pend') === 0 || strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-kartu') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-table"></i>
 									<p>
 										Kelola Data
@@ -528,9 +528,9 @@ include "inc/koneksi.php";
 							</li>
 
 							<li
-								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
+								class="nav-item has-treeview <?php echo (strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'menu-open' : ''; ?>">
 								<a href="#"
-									class="nav-link <?php echo (strpos($active_page, 'data-lahir') === 0 || strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
+									class="nav-link <?php echo (strpos($active_page, 'data-mendu') === 0 || strpos($active_page, 'data-datang') === 0 || strpos($active_page, 'data-pindah') === 0) ? 'active' : ''; ?>">
 									<i class="nav-icon fas fa-cogs"></i>
 									<p>
 										Sirkulasi Penduduk

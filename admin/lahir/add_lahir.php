@@ -57,70 +57,36 @@
                         <option selected="selected">- Pilih KK -</option>
                         <?php
                         // ambil data dari database
-                        $query = "SELECT k.*, p.nama as kepala FROM tb_kk k LEFT JOIN tb_pdd p ON k.id_kepala = p.id_pend";
+                        $query = "
+                        SELECT 
+                        k.*,
+                        p.nama AS nama_kepala
+                        FROM tb_kk k
+                        LEFT JOIN tb_pdd p ON p.id_pend = k.id_kepala
+                        WHERE EXISTS (
+                        SELECT 1 FROM tb_anggota a1
+                        WHERE a1.id_kk = k.id_kk AND a1.hubungan = 'Kepala Keluarga'
+                        )
+                        AND EXISTS (
+                        SELECT 1 FROM tb_anggota a2
+                        WHERE a2.id_kk = k.id_kk AND a2.hubungan = 'Istri'
+                        )
+                        ";
                         $hasil = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($hasil)) {
                             ?>
                             <option value="<?php echo $row['id_kk'] ?>">
                                 <?php echo $row['no_kk'] ?>
                                 -
-                                <?php echo $row['kepala'] ?>
+                                <?php echo $row['nama_kepala'] ?>
                             </option>
                             <?php
                         }
                         ?>
                     </select>
+                    <small class="text-muted">* Hanya menampilkan KK yang memiliki Kepala Keluarga dan Istri.</small>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Ibu<span class="text-danger">*</span></label>
-                <div class="col-sm-6">
-                    <select name="id_ibu" id="id_ibu" class="form-control select2bs4" required>
-                        <option selected="selected">- Pilih Ibu -</option>
-                        <?php
-                        // ambil data dari database
-                        $query = "
-                        SELECT p.id_pend, p.nama FROM tb_pdd p
-                        WHERE p.jekel = 'Perempuan'
-                        ";
-                        $hasil = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($hasil)) {
-                            ?>
-                            <option value="<?php echo $row['id_pend'] ?>">
-                                <?php echo $row['nama'] ?>
-                            </option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Bapak</label>
-                <div class="col-sm-6">
-                    <select name="id_bapak" id="id_bapak" class="form-control select2bs4">
-                        <option selected="selected">- Pilih Bapak -</option>
-                        <?php
-                        // ambil data dari database
-                        $query = "
-                        SELECT p.id_pend, p.nama FROM tb_pdd p
-                        WHERE p.jekel = 'Laki-Laki'
-                        ";
-                        $hasil = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($hasil)) {
-                            ?>
-                            <option value="<?php echo $row['id_pend'] ?>">
-                                <?php echo $row['nama'] ?>
-                            </option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-
 
 
             <div class="card-footer">
@@ -161,21 +127,31 @@ if (isset($_POST['Simpan'])) {
         Swal.fire({title: 'NIK Sudah Terdaftar',text: 'NIK sudah terdaftar di data $table_found',icon: 'error',confirmButtonText: 'OK'
         })</script>";
     } else {
+        $id_kk = $_POST['id_kk'];
+
+        // Ambil ID Bapak (Kepala Keluarga) dari tb_anggota
+        $q_bapak = mysqli_query($koneksi, "SELECT id_pend FROM tb_anggota WHERE id_kk='$id_kk' AND hubungan='Kepala Keluarga' LIMIT 1");
+        $d_bapak = mysqli_fetch_assoc($q_bapak);
+        $id_bapak = $d_bapak['id_pend'] ?? '';
+
+        // Ambil ID Ibu (Istri) dari tb_anggota
+        $q_ibu = mysqli_query($koneksi, "SELECT id_pend FROM tb_anggota WHERE id_kk='$id_kk' AND hubungan='Istri' LIMIT 1");
+        $d_ibu = mysqli_fetch_assoc($q_ibu);
+        $id_ibu = $d_ibu['id_pend'] ?? '';
+
         // 1. Simpan ke tabel kelahiran
         $sql_simpan = "INSERT INTO tb_lahir (nik, nama, tgl_lh, jekel, id_kk, id_ibu, id_bapak, anak_ke) VALUES (
         '" . $_POST['nik'] . "',
         '" . $_POST['nama'] . "',
         '" . $_POST['tgl_lh'] . "',
         '" . $_POST['jekel'] . "',
-        '" . $_POST['id_kk'] . "',
-        '" . $_POST['id_ibu'] . "',
-        '" . $_POST['id_bapak'] . "',
+        '$id_kk',
+        '$id_ibu',
+        '$id_bapak',
         '" . $_POST['anak_ke'] . "')";
         $query_simpan = mysqli_query($koneksi, $sql_simpan);
 
         if ($query_simpan) {
-
-            $id_kk = $_POST['id_kk'];
 
             // 2. Ambil data KK untuk alamat bayi
             $sql_kk = "SELECT desa, rt, rw, kab FROM tb_kk WHERE id_kk = '$id_kk'";
@@ -266,7 +242,7 @@ if (isset($_POST['Simpan'])) {
     // Validasi Anak Ke hanya angka
     const anakKeInput = document.getElementById('anak_ke');
     if (anakKeInput) {
-        anakKeInput.addEventListener('input', function() {
+        anakKeInput.addEventListener('input', function () {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
     }
