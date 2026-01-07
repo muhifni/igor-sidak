@@ -1,7 +1,8 @@
 <div class="card card-primary">
 	<div class="card-header">
 		<h3 class="card-title">
-			<i class="fa fa-file"></i> Su-Ket Kelahiran</h3>
+			<i class="fa fa-file"></i> Su-Ket Kelahiran
+		</h3>
 	</div>
 	<form action="./report/cetak_lahir.php" method="post" enctype="multipart/form-data">
 		<div class="card-body">
@@ -12,17 +13,17 @@
 					<select name="lahir" id="lahir" class="form-control select2bs4" required>
 						<option selected="selected">- Pilih Data -</option>
 						<?php
-				// ambil data dari database
-				$query = "select * from tb_lahir";
-				$hasil = mysqli_query($koneksi, $query);
-				while ($row = mysqli_fetch_array($hasil)) {
-				?>
-						<option value="<?php echo $row['id_lahir'] ?>">
-							<?php echo $row['nama'] ?>
-						</option>
-						<?php
-				}
-				?>
+						// ambil data dari database
+						$query = "select * from tb_lahir";
+						$hasil = mysqli_query($koneksi, $query);
+						while ($row = mysqli_fetch_array($hasil)) {
+							?>
+							<option value="<?php echo $row['id_lahir'] ?>">
+								<?php echo $row['nama'] ?>
+							</option>
+							<?php
+						}
+						?>
 					</select>
 				</div>
 			</div>
@@ -30,7 +31,7 @@
 		</div>
 		<div class="card-footer">
 
-			<input type="submit" name="Cetak" value="Cetak" class="btn btn-info">
+			<input type="submit" name="Cetak" value="Cetak" class="btn btn-info" target="_blank">
 		</div>
 	</form>
 </div>

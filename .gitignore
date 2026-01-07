@@ -11,3 +11,5 @@ Thumbs.db
 .idea/
 .vscode/
 *.sql
+PAYMENT_LOCK_CHANGELOG.md
+PAYMENT_LOCK_GUIDE.md

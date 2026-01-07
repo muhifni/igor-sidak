@@ -1,6 +1,11 @@
 <?php
 session_start();
 include "inc/koneksi.php";
+include "config_payment.php";
+
+// Cek apakah login diblokir
+$is_locked = isLoginBlocked();
+$lock_message = $blocked_message;
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +47,14 @@ include "inc/koneksi.php";
 					</h5>
 					<br>
 				</center>
+
+				<?php if ($is_locked): ?>
+				<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h5><i class="icon fas fa-ban"></i> Akses Diblokir!</h5>
+					<?php echo $lock_message; ?>
+				</div>
+				<?php endif; ?>
 
 				<form action="" method="post">
 					<div class="input-group mb-3">
@@ -88,42 +101,53 @@ include "inc/koneksi.php";
 
 <?php
 
-
-
-
-
 if (isset($_POST['btnLogin'])) {
-	//anti inject sql
-	$username = mysqli_real_escape_string($koneksi, strtolower(trim($_POST['username'])));
-	$password = mysqli_real_escape_string($koneksi, $_POST['password']);
-
-	//query login - ambil data user berdasarkan username
-	$sql_login = "SELECT * FROM tb_pengguna WHERE BINARY username='$username'";
-	$query_login = mysqli_query($koneksi, $sql_login);
-	$data_login = mysqli_fetch_array($query_login, MYSQLI_BOTH);
-	$jumlah_login = mysqli_num_rows($query_login);
-
-	// Verifikasi password
-	if ($jumlah_login == 1 && password_verify($password, $data_login['password'])) {
-		if (session_status() !== PHP_SESSION_ACTIVE) {
-			session_start();
-		}
-		$_SESSION["ses_id"] = $data_login["id_pengguna"];
-		$_SESSION["ses_nama"] = $data_login["nama_pengguna"];
-		$_SESSION["ses_username"] = $data_login["username"];
-		$_SESSION["ses_password"] = $data_login["password"];
-		$_SESSION["ses_level"] = $data_login["level"];
-
+	// Cek apakah login diblokir
+	if ($is_locked) {
 		echo "<script>
-			Swal.fire({title: 'Login Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
-			}).then((result) => {if (result.value)
-				{window.location = 'index.php';}
+			Swal.fire({
+				title: 'Akses Diblokir!',
+				text: '" . addslashes($lock_message) . "',
+				icon: 'error',
+				confirmButtonText: 'OK'
+			}).then((result) => {
+				if (result.value) {
+					window.location = 'login.php';
+				}
 			})</script>";
 	} else {
-		echo "<script>
-			Swal.fire({title: 'Login Gagal, Username atau Password Salah',text: '',icon: 'error',confirmButtonText: 'OK'
-			}).then((result) => {if (result.value)
-				{window.location = 'login.php';}
-			})</script>";
+		//anti inject sql
+		$username = mysqli_real_escape_string($koneksi, strtolower(trim($_POST['username'])));
+		$password = mysqli_real_escape_string($koneksi, $_POST['password']);
+
+		//query login - ambil data user berdasarkan username
+		$sql_login = "SELECT * FROM tb_pengguna WHERE BINARY username='$username'";
+		$query_login = mysqli_query($koneksi, $sql_login);
+		$data_login = mysqli_fetch_array($query_login, MYSQLI_BOTH);
+		$jumlah_login = mysqli_num_rows($query_login);
+
+		// Verifikasi password
+		if ($jumlah_login == 1 && password_verify($password, $data_login['password'])) {
+			if (session_status() !== PHP_SESSION_ACTIVE) {
+				session_start();
+			}
+			$_SESSION["ses_id"] = $data_login["id_pengguna"];
+			$_SESSION["ses_nama"] = $data_login["nama_pengguna"];
+			$_SESSION["ses_username"] = $data_login["username"];
+			$_SESSION["ses_password"] = $data_login["password"];
+			$_SESSION["ses_level"] = $data_login["level"];
+
+			echo "<script>
+				Swal.fire({title: 'Login Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
+				}).then((result) => {if (result.value)
+					{window.location = 'index.php';}
+				})</script>";
+		} else {
+			echo "<script>
+				Swal.fire({title: 'Login Gagal, Username atau Password Salah',text: '',icon: 'error',confirmButtonText: 'OK'
+				}).then((result) => {if (result.value)
+					{window.location = 'login.php';}
+				})</script>";
+		}
 	}
 }
